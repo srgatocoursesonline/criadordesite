@@ -1183,10 +1183,10 @@ class ChecklistApp {
                 const sectionElement = document.getElementById(sectionId);
                 const fields = sectionElement.querySelectorAll('input, select, textarea');
 
-                // --- LÓGICA DE FORMATAÇÃO DO PDF (AJUSTADA) ---
+                // --- INÍCIO DA LÓGICA DE FORMATAÇÃO AJUSTADA ---
                 fields.forEach(field => {
                     if (!field.name) return;
-                    checkPageBreak(10);
+                    checkPageBreak(10); // Checa se precisa de uma nova página
 
                     const label = this.getFieldLabel(field);
                     let valueText = '';
@@ -1195,9 +1195,9 @@ class ChecklistApp {
                     // Define o símbolo e o texto do valor
                     if (field.type === 'checkbox') {
                         statusSymbol = field.checked ? '✔' : '✗';
-                        valueText = field.checked ? 'Definido/Sim' : 'Não';
+                        valueText = field.checked ? 'Sim' : 'Não';
                     } else if (field.type === 'radio') {
-                        if (!field.checked) return; // Pula rádios não selecionados
+                        if (!field.checked) return;
                         statusSymbol = '✔';
                         valueText = field.value || 'Opção selecionada';
                     } else {
@@ -1205,26 +1205,29 @@ class ChecklistApp {
                         valueText = field.value.trim() || 'Não preenchido';
                     }
 
-                    // Define uma posição fixa para a coluna de valores e sua largura máxima
-                    const valueColumnX = 85; // Posição X (em mm) onde a coluna de valor começa
-                    const valueColumnWidth = usableWidth - (valueColumnX - margin);
+                    // Define as colunas e larguras
+                    const valueColumnX = 90; // Posição X (em mm) da segunda coluna
+                    const labelColumnWidth = valueColumnX - margin - 3; // Largura máxima da primeira coluna
+                    const valueColumnWidth = usableWidth - labelColumnWidth - 3; // Largura máxima da segunda coluna
 
                     doc.setFontSize(9);
-                    doc.setFont(undefined, 'normal');
                     
-                    // Texto do Label na primeira coluna
+                    // Prepara os textos para ambas as colunas, já com a quebra de linha
                     const labelFinalText = `${statusSymbol} ${label}`;
-                    doc.text(labelFinalText, margin, y);
-
-                    // Texto do Valor na segunda coluna, com quebra de linha automática
-                    doc.setFont(undefined, 'bold');
+                    const labelLines = doc.splitTextToSize(labelFinalText, labelColumnWidth);
                     const valueLines = doc.splitTextToSize(valueText, valueColumnWidth);
+
+                    // Desenha o texto do Label (coluna 1)
+                    doc.setFont(undefined, 'normal');
+                    doc.text(labelLines, margin, y);
+
+                    // Desenha o texto do Valor (coluna 2)
+                    doc.setFont(undefined, 'bold');
                     doc.text(valueLines, valueColumnX, y);
                     
-                    // Calcula a altura da linha com base no texto que tiver mais quebras (label ou valor)
-                    const labelLines = doc.splitTextToSize(labelFinalText, valueColumnX - margin - 5);
+                    // Incrementa a posição Y baseado na coluna que tiver mais linhas
                     const linesCount = Math.max(labelLines.length, valueLines.length);
-                    y += (linesCount * 5) + 2; // Incrementa a posição Y e adiciona um espaçamento
+                    y += (linesCount * 4.5) + 2; // Incremento + espaçamento
                 });
                 // --- FIM DA LÓGICA AJUSTADA ---
 
@@ -1239,7 +1242,7 @@ class ChecklistApp {
                 doc.text(`Página ${i} de ${pageCount}`, pageWidth - margin, doc.internal.pageSize.height - 10, { align: 'right' });
             }
 
-            const fileName = `checklist-site-${nomeEmpresa || 'projeto'}-${today.replace(/\//g, '-')}.pdf`;
+            const fileName = `checklist-site-${(nomeEmpresa || 'projeto').toLowerCase().replace(/\s/g, '_')}.pdf`;
             doc.save(fileName);
 
             this.showNotification('PDF gerado com sucesso!', 'success');
@@ -1252,7 +1255,7 @@ class ChecklistApp {
             this.generatePdfBtn.textContent = '📄 Gerar PDF';
         }
     }
-
+    
     showNotification(message, type = 'info') {
         const existing = document.querySelector('.notification');
         if (existing) existing.remove();
