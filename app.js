@@ -1134,7 +1134,7 @@ class ChecklistApp {
         });
     }
 
-    async generatePDF() {
+  async generatePDF() {
         this.generatePdfBtn.classList.add('loading');
         this.generatePdfBtn.disabled = true;
         this.generatePdfBtn.textContent = 'Carregando biblioteca...';
@@ -1142,10 +1142,9 @@ class ChecklistApp {
         try {
             const jsPDF = await this.loadJsPDF();
             this.generatePdfBtn.textContent = 'Gerando PDF...';
-            await new Promise(resolve => setTimeout(resolve, 100)); // Short delay for UI update
+            await new Promise(resolve => setTimeout(resolve, 100));
 
             const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
-            const formData = this.collectFormData();
             const margin = 15;
             const pageWidth = doc.internal.pageSize.width;
             const usableWidth = pageWidth - (margin * 2);
@@ -1157,7 +1156,7 @@ class ChecklistApp {
                     y = margin;
                 }
             };
-            
+
             doc.setFontSize(18);
             doc.setFont(undefined, 'bold');
             doc.text('Checklist de Site Profissional', margin, y);
@@ -1166,19 +1165,9 @@ class ChecklistApp {
             doc.setFontSize(10);
             doc.setFont(undefined, 'normal');
             const today = new Date().toLocaleDateString('pt-BR');
-            if (formData['nome-empresa']) {
-                 doc.text(`Projeto: ${formData['nome-empresa']} | Gerado em: ${today}`, margin, y);
-            } else {
-                 doc.text(`Gerado em: ${today}`, margin, y);
-            }
-            y += 10;
-            
-            // Título do Detalhamento
-            checkPageBreak(15);
-            doc.setFontSize(14);
-            doc.setFont(undefined, 'bold');
-            doc.text('Detalhamento por Seção', margin, y);
-            y += 10;
+            const nomeEmpresa = this.form.querySelector('#nome-empresa').value;
+            doc.text(`Projeto: ${nomeEmpresa || 'Não informado'} | Gerado em: ${today}`, margin, y);
+            y += 12;
 
             this.accordionHeaders.forEach((header) => {
                 const sectionId = header.getAttribute('aria-controls');
@@ -1186,54 +1175,63 @@ class ChecklistApp {
                 const sectionNumber = header.querySelector('.section-number').textContent;
 
                 checkPageBreak(12);
-                doc.setFontSize(12);
+                doc.setFontSize(13);
                 doc.setFont(undefined, 'bold');
                 doc.text(`${sectionNumber}. ${sectionTitle}`, margin, y);
-                y += 7;
+                y += 8;
 
                 const sectionElement = document.getElementById(sectionId);
                 const fields = sectionElement.querySelectorAll('input, select, textarea');
 
-                doc.setFontSize(9);
-                doc.setFont(undefined, 'normal');
-
+                // --- LÓGICA DE FORMATAÇÃO DO PDF (AJUSTADA) ---
                 fields.forEach(field => {
                     if (!field.name) return;
+                    checkPageBreak(10);
 
                     const label = this.getFieldLabel(field);
                     let valueText = '';
                     let statusSymbol = '';
 
+                    // Define o símbolo e o texto do valor
                     if (field.type === 'checkbox') {
                         statusSymbol = field.checked ? '✔' : '✗';
-                        valueText = field.checked ? 'Sim' : 'Não';
+                        valueText = field.checked ? 'Definido/Sim' : 'Não';
                     } else if (field.type === 'radio') {
-                        if (field.checked) {
-                            statusSymbol = '✔';
-                            valueText = field.value || 'Opção selecionada';
-                        } else {
-                            return; // Skip unchecked radios
-                        }
+                        if (!field.checked) return; // Pula rádios não selecionados
+                        statusSymbol = '✔';
+                        valueText = field.value || 'Opção selecionada';
                     } else {
                         statusSymbol = field.value.trim() ? '✔' : '✗';
                         valueText = field.value.trim() || 'Não preenchido';
                     }
-                    
-                    checkPageBreak(8);
-                    doc.text(`${statusSymbol} ${label}:`, margin + 2, y);
-                    const labelWidth = doc.getTextWidth(`${statusSymbol} ${label}: `);
-                    
-                    // Add wrapped text for the value
-                    const valueLines = doc.splitTextToSize(valueText, usableWidth - labelWidth - 2);
-                    doc.text(valueLines, margin + 2 + labelWidth, y);
-                    
-                    const lineHeight = valueLines.length * 4; // Approx height for 9pt font
-                    y += lineHeight + 2; 
-                });
 
-                y += 5; // Espaço entre as seções
+                    // Define uma posição fixa para a coluna de valores e sua largura máxima
+                    const valueColumnX = 85; // Posição X (em mm) onde a coluna de valor começa
+                    const valueColumnWidth = usableWidth - (valueColumnX - margin);
+
+                    doc.setFontSize(9);
+                    doc.setFont(undefined, 'normal');
+                    
+                    // Texto do Label na primeira coluna
+                    const labelFinalText = `${statusSymbol} ${label}`;
+                    doc.text(labelFinalText, margin, y);
+
+                    // Texto do Valor na segunda coluna, com quebra de linha automática
+                    doc.setFont(undefined, 'bold');
+                    const valueLines = doc.splitTextToSize(valueText, valueColumnWidth);
+                    doc.text(valueLines, valueColumnX, y);
+                    
+                    // Calcula a altura da linha com base no texto que tiver mais quebras (label ou valor)
+                    const labelLines = doc.splitTextToSize(labelFinalText, valueColumnX - margin - 5);
+                    const linesCount = Math.max(labelLines.length, valueLines.length);
+                    y += (linesCount * 5) + 2; // Incrementa a posição Y e adiciona um espaçamento
+                });
+                // --- FIM DA LÓGICA AJUSTADA ---
+
+                y += 6; // Espaço extra entre as seções
             });
 
+            // Adiciona numeração nas páginas
             const pageCount = doc.internal.getNumberOfPages();
             for (let i = 1; i <= pageCount; i++) {
                 doc.setPage(i);
@@ -1241,7 +1239,7 @@ class ChecklistApp {
                 doc.text(`Página ${i} de ${pageCount}`, pageWidth - margin, doc.internal.pageSize.height - 10, { align: 'right' });
             }
 
-            const fileName = `checklist-site-${formData['nome-empresa'] || 'projeto'}-${today.replace(/\//g, '-')}.pdf`;
+            const fileName = `checklist-site-${nomeEmpresa || 'projeto'}-${today.replace(/\//g, '-')}.pdf`;
             doc.save(fileName);
 
             this.showNotification('PDF gerado com sucesso!', 'success');
