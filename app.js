@@ -23,6 +23,37 @@ class ChecklistApp {
             'pos-lancamento': { total: 7, completed: 0 }
         };
 
+        // Adicione este novo método dentro da classe ChecklistApp
+    setupClearDataButton() {
+        const footerContainer = document.querySelector('.footer .container');
+        if (!footerContainer) {
+            console.error('Container do rodapé não encontrado para adicionar o botão de limpar.');
+            return;
+        }
+
+        const clearBtn = document.createElement('button');
+        clearBtn.type = 'button';
+        clearBtn.id = 'clearDataBtn';
+        clearBtn.className = 'btn btn--secondary'; // Usando uma classe para um estilo secundário
+        clearBtn.textContent = '🗑️ Limpar Dados';
+        clearBtn.setAttribute('title', 'Limpa todos os dados preenchidos no formulário');
+
+        // Adiciona o botão ao lado do botão de PDF
+        footerContainer.appendChild(clearBtn);
+
+        // Adiciona o evento de clique
+        clearBtn.addEventListener('click', () => {
+            const wantsToClear = confirm('Você tem certeza que deseja apagar todo o progresso? Esta ação não pode ser desfeita.');
+            
+            if (wantsToClear) {
+                // Remove o item do sessionStorage
+                sessionStorage.removeItem('checklistData');
+                // Recarrega a página para refletir o estado limpo
+                location.reload();
+            }
+        });
+    }
+
         // Dados de help COMPLETOS para todos os campos
         this.helpData = {
             // ===== INFORMAÇÕES BÁSICAS DO PROJETO =====
@@ -798,17 +829,17 @@ class ChecklistApp {
         this.init();
     }
 
-    init() {
+   init() {
         this.setupAccordion();
         this.setupFormValidation();
         this.setupProgressTracking();
         this.setupPdfGeneration();
+        this.setupClearDataButton(); // <<< ADICIONE ESTA LINHA
         this.setupKeyboardNavigation();
         this.loadSavedData();
         this.calculateTotalFields();
         this.updateProgress();
         
-        // Aguarda o DOM estar completamente carregado antes de configurar o help
         setTimeout(() => {
             this.setupHelpSystem();
         }, 100);
@@ -1543,6 +1574,40 @@ style.textContent = `
         from { transform: translateX(100%); opacity: 0; }
         to { transform: translateX(0); opacity: 1; }
     }
+
+     /* ===== ESTILOS PARA O NOVO BOTÃO (ADICIONAR) ===== */
+    .footer .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    #clearDataBtn {
+        background-color: var(--color-surface-alt, #4a4a4a);
+        color: var(--color-text-secondary, #ccc);
+        border: 1px solid var(--color-border, #555);
+        padding: 10px 20px;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+    }
+
+    #clearDataBtn:hover {
+        background-color: #c53030; /* Vermelho perigo */
+        color: #fff;
+        border-color: #c53030;
+        transform: translateY(-2px);
+    }
+    /* =============================================== */
+
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
     .notification {
         position: fixed; top: 20px; right: 20px; padding: 12px 20px; border-radius: 6px;
         color: white; font-weight: 500; z-index: 10000; max-width: 300px;
