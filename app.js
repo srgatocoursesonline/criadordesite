@@ -1134,7 +1134,7 @@ class ChecklistApp {
         });
     }
 
-  async generatePDF() {
+ async generatePDF() {
         this.generatePdfBtn.classList.add('loading');
         this.generatePdfBtn.disabled = true;
         this.generatePdfBtn.textContent = 'Carregando biblioteca...';
@@ -1183,10 +1183,10 @@ class ChecklistApp {
                 const sectionElement = document.getElementById(sectionId);
                 const fields = sectionElement.querySelectorAll('input, select, textarea');
 
-                // --- INÍCIO DA LÓGICA DE FORMATAÇÃO AJUSTADA ---
+                // --- INÍCIO DA LÓGICA DE FORMATAÇÃO FINAL ---
                 fields.forEach(field => {
                     if (!field.name) return;
-                    checkPageBreak(10); // Checa se precisa de uma nova página
+                    checkPageBreak(15); // Aumenta o espaço verificado
 
                     const label = this.getFieldLabel(field);
                     let valueText = '';
@@ -1205,33 +1205,29 @@ class ChecklistApp {
                         valueText = field.value.trim() || 'Não preenchido';
                     }
 
-                    // Define as colunas e larguras
-                    const valueColumnX = 90; // Posição X (em mm) da segunda coluna
-                    const labelColumnWidth = valueColumnX - margin - 3; // Largura máxima da primeira coluna
-                    const valueColumnWidth = usableWidth - labelColumnWidth - 3; // Largura máxima da segunda coluna
-
                     doc.setFontSize(9);
                     
-                    // Prepara os textos para ambas as colunas, já com a quebra de linha
-                    const labelFinalText = `${statusSymbol} ${label}`;
-                    const labelLines = doc.splitTextToSize(labelFinalText, labelColumnWidth);
-                    const valueLines = doc.splitTextToSize(valueText, valueColumnWidth);
-
-                    // Desenha o texto do Label (coluna 1)
+                    // 1. Desenha o label principal, com quebra de linha na largura total
                     doc.setFont(undefined, 'normal');
+                    const labelFinalText = `${statusSymbol} ${label}`;
+                    const labelLines = doc.splitTextToSize(labelFinalText, usableWidth);
                     doc.text(labelLines, margin, y);
 
-                    // Desenha o texto do Valor (coluna 2)
-                    doc.setFont(undefined, 'bold');
-                    doc.text(valueLines, valueColumnX, y);
-                    
-                    // Incrementa a posição Y baseado na coluna que tiver mais linhas
-                    const linesCount = Math.max(labelLines.length, valueLines.length);
-                    y += (linesCount * 4.5) + 2; // Incremento + espaçamento
-                });
-                // --- FIM DA LÓGICA AJUSTADA ---
+                    // 2. Incrementa Y baseado na altura do label que acabou de ser desenhado
+                    y += (labelLines.length * 4.5); // Incremento baseado no número de linhas do label
+                    checkPageBreak(10);
 
-                y += 6; // Espaço extra entre as seções
+                    // 3. Desenha o valor na linha de baixo, com recuo e em negrito
+                    doc.setFont(undefined, 'bold');
+                    const valueFinalText = `↳ ${valueText}`;
+                    doc.text(valueFinalText, margin + 5, y);
+                    
+                    // 4. Incremento final para o próximo item
+                    y += 4.5 + 3; // Incrementa a altura de uma linha + espaçamento
+                });
+                // --- FIM DA LÓGICA DE FORMATAÇÃO FINAL ---
+
+                y += 4; // Espaço extra entre as seções
             });
 
             // Adiciona numeração nas páginas
