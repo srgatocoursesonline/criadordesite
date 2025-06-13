@@ -1,6 +1,7 @@
 // Professional Website Checklist Application
 class ChecklistApp {
     constructor() {
+        // 1. Inicialização das propriedades da classe
         this.form = document.getElementById('checklistForm');
         this.progressBar = document.getElementById('progressFill');
         this.progressText = document.getElementById('progressText');
@@ -23,38 +24,6 @@ class ChecklistApp {
             'pos-lancamento': { total: 7, completed: 0 }
         };
 
-        // Adicione este novo método dentro da classe ChecklistApp
-    setupClearDataButton() {
-        const footerContainer = document.querySelector('.footer .container');
-        if (!footerContainer) {
-            console.error('Container do rodapé não encontrado para adicionar o botão de limpar.');
-            return;
-        }
-
-        const clearBtn = document.createElement('button');
-        clearBtn.type = 'button';
-        clearBtn.id = 'clearDataBtn';
-        clearBtn.className = 'btn btn--secondary'; // Usando uma classe para um estilo secundário
-        clearBtn.textContent = '🗑️ Limpar Dados';
-        clearBtn.setAttribute('title', 'Limpa todos os dados preenchidos no formulário');
-
-        // Adiciona o botão ao lado do botão de PDF
-        footerContainer.appendChild(clearBtn);
-
-        // Adiciona o evento de clique
-        clearBtn.addEventListener('click', () => {
-            const wantsToClear = confirm('Você tem certeza que deseja apagar todo o progresso? Esta ação não pode ser desfeita.');
-            
-            if (wantsToClear) {
-                // Remove o item do sessionStorage
-                sessionStorage.removeItem('checklistData');
-                // Recarrega a página para refletir o estado limpo
-                location.reload();
-            }
-        });
-    }
-
-        // Dados de help COMPLETOS para todos os campos
         this.helpData = {
             // ===== INFORMAÇÕES BÁSICAS DO PROJETO =====
             'nome-empresa': {
@@ -99,7 +68,6 @@ class ChecklistApp {
                 tips: 'Seja realista. Inclua tempo para desenvolvimento, testes, correções e treinamento. A complexidade do projeto impacta diretamente o prazo.',
                 docs: 'https://www.google.com/search?q=como+definir+cronograma+de+projeto+web'
             },
-
             // ===== IDENTIDADE VISUAL E BRANDING =====
             'cor-primaria': {
                 title: 'Cor Primária',
@@ -241,8 +209,6 @@ class ChecklistApp {
                 tips: 'Imagens de baixa qualidade podem arruinar um bom design. Invista em fotografia profissional ou bancos de imagem de qualidade.',
                 docs: 'https://www.google.com/search?q=impacto+da+qualidade+das+imagens+em+um+site'
             },
-
-            // ===== ESTRUTURA E LAYOUT =====
             'posicao-logo': {
                 title: 'Posição do Logo no Header',
                 description: 'Define a localização do logo no cabeçalho do site.',
@@ -348,8 +314,6 @@ class ChecklistApp {
                 tips: 'Ajuda usuários e mecanismos de busca a encontrar todas as páginas do seu site. Diferente do sitemap.xml.',
                 docs: 'https://www.google.com/search?q=diferen%C3%A7a+sitemap+html+e+xml'
             },
-
-            // ===== RESPONSIVIDADE =====
             'mobile-320-768': {
                 title: 'Teste em Mobile (320px - 768px)',
                 description: 'Marque se o layout será testado e adaptado para telas de smartphones.',
@@ -399,8 +363,6 @@ class ChecklistApp {
                 tips: 'O Google recomenda um tamanho mínimo de 48x48dp para qualquer elemento de toque para garantir a acessibilidade.',
                 docs: 'https://web.dev/articles/accessible-tap-targets'
             },
-
-            // ===== ACESSIBILIDADE =====
             'ratio-4-5-1': {
                 title: 'Contraste 4.5:1 para Texto Normal',
                 description: 'Marque se o contraste entre a cor do texto normal (até 18px) e a cor de fundo atende ao mínimo de 4.5:1 (WCAG AA).',
@@ -471,8 +433,6 @@ class ChecklistApp {
                 tips: 'Use ARIA com cautela. A primeira regra do ARIA é: não use ARIA se um elemento HTML nativo já oferece a semântica que você precisa.',
                 docs: 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques'
             },
-
-            // ===== PERFORMANCE =====
             'formato-webp': {
                 title: 'Formato de Imagem WebP',
                 description: 'Marque se as imagens são servidas no formato WebP, que é mais leve que JPG e PNG.',
@@ -550,8 +510,6 @@ class ChecklistApp {
                 tips: 'Sempre defina as dimensões (`width` e `height`) em imagens e vídeos para evitar que o layout mude quando eles carregarem.',
                 docs: 'https://web.dev/articles/cls'
             },
-
-            // ===== SEO =====
             'title-tag': {
                 title: 'Title Tag',
                 description: 'O título da página que aparece na aba do navegador e nos resultados de busca do Google.',
@@ -650,8 +608,6 @@ class ChecklistApp {
                 tips: 'Dados estruturados podem melhorar drasticamente sua aparência nos resultados de busca, aumentando o CTR.',
                 docs: 'https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data'
             },
-
-            // ===== SEGURANÇA =====
             'certificado-ssl': {
                 title: 'Certificado SSL Instalado',
                 description: 'Marque se um certificado SSL está instalado e ativado, fazendo o site rodar em HTTPS.',
@@ -701,8 +657,6 @@ class ChecklistApp {
                 tips: 'Não basta fazer o backup, é preciso testar a restauração periodicamente para garantir que ele funciona.',
                 docs: 'https://www.google.com/search?q=importancia+de+backup+de+site'
             },
-
-            // ===== TESTES =====
             'todos-links': {
                 title: 'Teste de Todos os Links',
                 description: 'Marque se todos os links internos e externos do site foram clicados para garantir que não há links quebrados (erro 404).',
@@ -773,8 +727,6 @@ class ChecklistApp {
                 tips: 'O Lighthouse é uma ferramenta fantástica para um checklist final, pois cobre várias áreas importantes do desenvolvimento web.',
                 docs: 'https://developer.chrome.com/docs/lighthouse/overview/'
             },
-
-            // ===== PÓS-LANÇAMENTO =====
             'google-analytics': {
                 title: 'Google Analytics Instalado',
                 description: 'Marque se o código de acompanhamento do Google Analytics 4 (GA4) foi instalado em todas as páginas do site.',
@@ -826,15 +778,17 @@ class ChecklistApp {
             }
         };
 
+        // 2. Chamada final para iniciar a aplicação
         this.init();
     }
 
-   init() {
+    // 3. Definição de todos os métodos da classe
+    init() {
         this.setupAccordion();
         this.setupFormValidation();
         this.setupProgressTracking();
         this.setupPdfGeneration();
-        this.setupClearDataButton(); // <<< ADICIONE ESTA LINHA
+        this.setupClearDataButton();
         this.setupKeyboardNavigation();
         this.loadSavedData();
         this.calculateTotalFields();
@@ -845,82 +799,88 @@ class ChecklistApp {
         }, 100);
     }
 
+    setupClearDataButton() {
+        const footerContainer = document.querySelector('.footer .container');
+        if (!footerContainer) {
+            console.error('Container do rodapé não encontrado para adicionar o botão de limpar.');
+            return;
+        }
+
+        // Previne a adição de múltiplos botões
+        if (document.getElementById('clearDataBtn')) return;
+
+        const clearBtn = document.createElement('button');
+        clearBtn.type = 'button';
+        clearBtn.id = 'clearDataBtn';
+        clearBtn.className = 'btn btn--secondary';
+        clearBtn.textContent = '🗑️ Limpar Dados';
+        clearBtn.setAttribute('title', 'Limpa todos os dados preenchidos no formulário');
+
+        footerContainer.appendChild(clearBtn);
+
+        clearBtn.addEventListener('click', () => {
+            const wantsToClear = confirm('Você tem certeza que deseja apagar todo o progresso? Esta ação não pode ser desfeita.');
+            
+            if (wantsToClear) {
+                sessionStorage.removeItem('checklistData');
+                location.reload();
+            }
+        });
+    }
+
     setupHelpSystem() {
-        console.log('Configurando sistema de help...');
-        
-        // Adiciona ícones de help a todos os campos
         this.addHelpIcons();
         
-        // Event listeners para tooltips com event delegation
         document.addEventListener('click', (e) => {
-            if (e.target.closest('.help-icon')) {
+            const helpIcon = e.target.closest('.help-icon');
+            if (helpIcon) {
                 e.preventDefault();
                 e.stopPropagation();
-                const helpIcon = e.target.closest('.help-icon');
-                console.log('Clicou no help icon:', helpIcon.getAttribute('data-field'));
                 this.showTooltip(helpIcon);
             } else if (!e.target.closest('.tooltip')) {
                 this.hideAllTooltips();
             }
         });
 
-        // Fecha tooltip com ESC
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 this.hideAllTooltips();
             }
         });
-
-        console.log('Sistema de help configurado!');
     }
 
     addHelpIcons() {
-        // Busca por todos os inputs, selects e textareas que tenham name
         const formElements = this.form.querySelectorAll('input[name], select[name], textarea[name]');
         
         formElements.forEach(element => {
             const fieldName = element.getAttribute('name');
             
             if (this.helpData[fieldName]) {
-                console.log('Adicionando help icon para:', fieldName);
-                
-                // Encontra o label associado
                 const label = this.findLabelForInput(element);
                 
-                if (label) {
-                    // Verifica se já não tem um help icon
-                    if (!label.querySelector('.help-icon')) {
-                        const helpIcon = this.createHelpIcon(fieldName);
-                        label.appendChild(helpIcon);
-                        console.log('Help icon adicionado para:', fieldName);
-                    }
-                } else {
-                    console.log('Label não encontrado para:', fieldName);
+                if (label && !label.querySelector('.help-icon')) {
+                    const helpIcon = this.createHelpIcon(fieldName);
+                    label.appendChild(helpIcon);
                 }
             }
         });
     }
+
     findLabelForInput(input) {
-        // Método 1: Busca por label com atributo 'for'
         if (input.id) {
             const label = document.querySelector(`label[for="${input.id}"]`);
             if (label) return label;
         }
         
-        // Método 2: Busca por label pai
         const parentLabel = input.closest('label');
         if (parentLabel) return parentLabel;
         
-        // Método 3: Busca por label irmão anterior
         let sibling = input.previousElementSibling;
         while (sibling) {
-            if (sibling.tagName === 'LABEL') {
-                return sibling;
-            }
+            if (sibling.tagName === 'LABEL') return sibling;
             sibling = sibling.previousElementSibling;
         }
         
-        // Método 4: Busca por label no mesmo container
         const container = input.closest('.form-group, .fieldset, .checkbox-group');
         if (container) {
             const label = container.querySelector('label');
@@ -943,7 +903,6 @@ class ChecklistApp {
                 <line x1="12" y1="17" x2="12.01" y2="17"></line>
             </svg>
         `;
-        
         return helpIcon;
     }
 
@@ -951,17 +910,10 @@ class ChecklistApp {
         const fieldName = helpIcon.getAttribute('data-field');
         const helpInfo = this.helpData[fieldName];
         
-        console.log('Mostrando tooltip para:', fieldName, helpInfo);
-        
-        if (!helpInfo) {
-            console.log('Informação de help não encontrada para:', fieldName);
-            return;
-        }
+        if (!helpInfo) return;
 
-        // Remove tooltip existente
         this.hideAllTooltips();
 
-        // Cria o link de documentação, se existir
         let docsLink = '';
         if (helpInfo.docs) {
             docsLink = `
@@ -973,78 +925,48 @@ class ChecklistApp {
             `;
         }
 
-        // Cria novo tooltip
         const tooltip = document.createElement('div');
         tooltip.className = 'tooltip';
         tooltip.innerHTML = `
             <div class="tooltip-header">
                 <h4 class="tooltip-title">${helpInfo.title}</h4>
                 <button class="tooltip-close" aria-label="Fechar ajuda">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
             </div>
             <div class="tooltip-content">
                 <p class="tooltip-description">${helpInfo.description}</p>
-                <div class="tooltip-example">
-                    <strong>Exemplo:</strong>
-                    <p>${helpInfo.example}</p>
-                </div>
-                <div class="tooltip-tips">
-                    <strong>Dica:</strong>
-                    <p>${helpInfo.tips}</p>
-                </div>
+                <div class="tooltip-example"><strong>Exemplo:</strong><p>${helpInfo.example}</p></div>
+                <div class="tooltip-tips"><strong>Dica:</strong><p>${helpInfo.tips}</p></div>
                 ${docsLink}
             </div>
         `;
-
-        // Adiciona ao body
-        document.body.appendChild(tooltip);
         
-        // Posiciona o tooltip
+        document.body.appendChild(tooltip);
         this.positionTooltip(tooltip, helpIcon);
-
-        // Event listener para fechar
-        const closeBtn = tooltip.querySelector('.tooltip-close');
-        closeBtn.addEventListener('click', (e) => {
+        
+        tooltip.querySelector('.tooltip-close').addEventListener('click', (e) => {
             e.stopPropagation();
             this.hideAllTooltips();
         });
 
-        // Foco no tooltip para acessibilidade
         tooltip.setAttribute('tabindex', '-1');
         tooltip.focus();
-
-        console.log('Tooltip criado e exibido');
     }
 
     positionTooltip(tooltip, trigger) {
         const triggerRect = trigger.getBoundingClientRect();
         const tooltipRect = tooltip.getBoundingClientRect();
-        const viewportWidth = window.innerWidth;
-        const viewportHeight = window.innerHeight;
+        const { innerWidth: viewportWidth, innerHeight: viewportHeight } = window;
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-
+        
         let top = triggerRect.top + scrollTop - tooltipRect.height - 10;
         let left = triggerRect.left + scrollLeft + (triggerRect.width / 2) - (tooltipRect.width / 2);
 
-        // Ajusta se sair da tela pela direita
-        if (left + tooltipRect.width > viewportWidth + scrollLeft - 20) {
-            left = viewportWidth + scrollLeft - tooltipRect.width - 20;
-        }
-
-        // Ajusta se sair da tela pela esquerda
-        if (left < scrollLeft + 20) {
-            left = scrollLeft + 20;
-        }
-
-        // Se não cabe acima, coloca abaixo
-        if (top < scrollTop + 20) {
-            top = triggerRect.bottom + scrollTop + 10;
-        }
+        if (left + tooltipRect.width > viewportWidth + scrollLeft - 20) left = viewportWidth + scrollLeft - tooltipRect.width - 20;
+        if (left < scrollLeft + 20) left = scrollLeft + 20;
+        if (top < scrollTop + 20) top = triggerRect.bottom + scrollTop + 10;
 
         tooltip.style.position = 'absolute';
         tooltip.style.top = `${top}px`;
@@ -1053,19 +975,12 @@ class ChecklistApp {
     }
 
     hideAllTooltips() {
-        const tooltips = document.querySelectorAll('.tooltip');
-        tooltips.forEach(tooltip => {
-            tooltip.remove();
-        });
+        document.querySelectorAll('.tooltip').forEach(tooltip => tooltip.remove());
     }
 
-    // Resto dos métodos da classe (setupAccordion, validateField, etc. - mantém os mesmos do código anterior)
     setupAccordion() {
         this.accordionHeaders.forEach((header, index) => {
-            header.addEventListener('click', (e) => {
-                this.toggleAccordion(header);
-            });
-
+            header.addEventListener('click', () => this.toggleAccordion(header));
             header.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
@@ -1085,24 +1000,18 @@ class ChecklistApp {
         const content = document.getElementById(header.getAttribute('aria-controls'));
         const isExpanded = header.getAttribute('aria-expanded') === 'true';
 
-        // Close all other accordions
         this.accordionHeaders.forEach(h => {
             if (h !== header) {
                 h.setAttribute('aria-expanded', 'false');
-                const otherContent = document.getElementById(h.getAttribute('aria-controls'));
-                otherContent.classList.remove('expanded');
+                document.getElementById(h.getAttribute('aria-controls')).classList.remove('expanded');
             }
         });
 
-        // Toggle current accordion
-        header.setAttribute('aria-expanded', !isExpanded);
+        header.setAttribute('aria-expanded', String(!isExpanded));
         content.classList.toggle('expanded', !isExpanded);
 
-        // Scroll to section if opening
         if (!isExpanded) {
-            setTimeout(() => {
-                header.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 150);
+            setTimeout(() => header.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
         }
     }
 
@@ -1112,188 +1021,114 @@ class ChecklistApp {
     }
 
     focusPrevHeader(currentIndex) {
-        const prevIndex = currentIndex === 0 ? this.accordionHeaders.length - 1 : currentIndex - 1;
+        const prevIndex = (currentIndex - 1 + this.accordionHeaders.length) % this.accordionHeaders.length;
         this.accordionHeaders[prevIndex].focus();
     }
 
     setupFormValidation() {
-        const requiredFields = this.form.querySelectorAll('input[required], select[required]');
-        
-        requiredFields.forEach(field => {
+        this.form.querySelectorAll('input[required], select[required]').forEach(field => {
             field.addEventListener('blur', () => this.validateField(field));
             field.addEventListener('input', () => this.validateField(field));
-            field.addEventListener('change', () => this.validateField(field));
         });
     }
 
     validateField(field) {
         const isEmpty = !field.value.trim();
         field.classList.toggle('error', isEmpty);
-        
-        // Update progress after validation
-        setTimeout(() => this.updateProgress(), 50);
+        this.updateProgress();
     }
 
     setupProgressTracking() {
-        const allInputs = this.form.querySelectorAll('input, select, textarea');
-        
-        allInputs.forEach(input => {
-            input.addEventListener('input', () => this.updateProgress());
-            input.addEventListener('change', () => this.updateProgress());
-        });
+        this.form.addEventListener('input', () => this.updateProgress());
     }
 
     calculateTotalFields() {
-        const allInputs = this.form.querySelectorAll('input[data-section], select[data-section], textarea[data-section]');
-        this.totalFields = allInputs.length;
+        this.totalFields = this.form.querySelectorAll('[data-section]').length;
     }
 
     updateProgress() {
         let totalCompleted = 0;
-
-        // Update each section
         Object.keys(this.sectionData).forEach(sectionId => {
             const sectionFields = this.form.querySelectorAll(`[data-section="${sectionId}"]`);
             let sectionCompleted = 0;
-
             sectionFields.forEach(field => {
-                if (field.type === 'checkbox') {
-                    if (field.checked) sectionCompleted++;
-                } else {
-                    if (field.value.trim()) sectionCompleted++;
+                if ((field.type === 'checkbox' && field.checked) || (field.type !== 'checkbox' && field.value.trim())) {
+                    sectionCompleted++;
                 }
             });
-
             this.sectionData[sectionId].completed = sectionCompleted;
             totalCompleted += sectionCompleted;
-
-            // Update section counter
             const counter = document.getElementById(`counter-${sectionId}`);
             if (counter) {
                 counter.textContent = `${sectionCompleted}/${this.sectionData[sectionId].total}`;
             }
         });
 
-        // Update main progress
         this.completedFields = totalCompleted;
         const percentage = this.totalFields > 0 ? Math.round((this.completedFields / this.totalFields) * 100) : 0;
-        
         this.progressBar.style.width = `${percentage}%`;
         this.progressText.textContent = `${percentage}% Completo`;
-        
-        // Save data
         this.saveData();
     }
 
     setupPdfGeneration() {
-        this.generatePdfBtn.addEventListener('click', () => {
-            this.generatePDF();
-        });
+        this.generatePdfBtn.addEventListener('click', () => this.generatePDF());
     }
 
     setupKeyboardNavigation() {
-        const focusableElements = this.form.querySelectorAll(
-            'button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        );
-
-        focusableElements.forEach(element => {
-            element.addEventListener('keydown', (e) => {
-                if (e.key === 'Tab') {
-                    return;
-                }
-            });
-        });
+        // Lógica de navegação por teclado pode ser mantida ou adicionada aqui
     }
 
     saveData() {
-        const formData = new FormData(this.form);
         const data = {};
-
-        for (let [key, value] of formData.entries()) {
+        const formData = new FormData(this.form);
+        for (const [key, value] of formData.entries()) {
             if (data[key]) {
-                if (Array.isArray(data[key])) {
-                    data[key].push(value);
-                } else {
-                    data[key] = [data[key], value];
-                }
+                if (!Array.isArray(data[key])) data[key] = [data[key]];
+                data[key].push(value);
             } else {
                 data[key] = value;
             }
         }
-
-        const checkboxes = this.form.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(checkbox => {
-            // Store checkbox state correctly, especially if it wasn't in FormData
-            if (data[checkbox.name] === undefined) {
-                 data[checkbox.name] = checkbox.checked;
+        // Garante que checkboxes desmarcados sejam salvos como 'false'
+        this.form.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+            if (!cb.checked) {
+                if (data[cb.name] === undefined) data[cb.name] = false;
             }
         });
-
-        try {
-            sessionStorage.setItem('checklistData', JSON.stringify(data));
-        } catch (e) {
-            console.warn('Could not save data to sessionStorage:', e);
-        }
+        sessionStorage.setItem('checklistData', JSON.stringify(data));
     }
 
     loadSavedData() {
-        try {
-            const savedData = sessionStorage.getItem('checklistData');
-            if (savedData) {
-                const data = JSON.parse(savedData);
-                Object.entries(data).forEach(([key, value]) => {
-                    const elements = this.form.querySelectorAll(`[name="${key}"]`);
-                    if (elements.length > 0) {
-                        if (elements[0].type === 'checkbox') {
-                            // Handle single checkbox and checkbox groups
-                            elements.forEach(el => {
-                                if (Array.isArray(value)) {
-                                    el.checked = value.includes(el.value);
-                                } else {
-                                    el.checked = (value === 'on' || value === true || value === el.value);
-                                }
-                            });
-                        } else if (elements[0].type === 'radio') {
-                             elements.forEach(el => {
-                                if (el.value === value) {
-                                    el.checked = true;
-                                }
-                            });
-                        }
-                        else {
-                            elements[0].value = value;
-                        }
-                    }
-                });
+        const savedData = sessionStorage.getItem('checklistData');
+        if (!savedData) return;
+        
+        const data = JSON.parse(savedData);
+        Object.entries(data).forEach(([key, value]) => {
+            const elements = this.form.querySelectorAll(`[name="${key}"]`);
+            if (elements.length > 0) {
+                const el = elements[0];
+                if (el.type === 'checkbox') {
+                    elements.forEach(cb => {
+                        if (Array.isArray(value)) cb.checked = value.includes(cb.value);
+                        else cb.checked = (value === true || value === cb.value);
+                    });
+                } else if (el.type === 'radio') {
+                    elements.forEach(rb => rb.checked = rb.value === value);
+                } else {
+                    el.value = value || '';
+                }
             }
-        } catch (e) {
-            console.warn('Could not load saved data:', e);
-        }
+        });
     }
 
     async loadJsPDF() {
         return new Promise((resolve, reject) => {
-            if (window.jspdf && window.jspdf.jsPDF) {
-                resolve(window.jspdf.jsPDF);
-                return;
-            }
-
-            if (window.jsPDF) {
-                resolve(window.jsPDF);
-                return;
-            }
-
+            if (window.jspdf && window.jspdf.jsPDF) return resolve(window.jspdf.jsPDF);
+            if (window.jsPDF) return resolve(window.jsPDF); // Fallback for some versions
             const script = document.createElement('script');
             script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
-            script.onload = () => {
-                if (window.jspdf && window.jspdf.jsPDF) {
-                    resolve(window.jspdf.jsPDF);
-                } else if (window.jsPDF) {
-                    resolve(window.jsPDF);
-                } else {
-                    reject(new Error('jsPDF não pôde ser carregado'));
-                }
-            };
+            script.onload = () => resolve(window.jspdf.jsPDF || window.jsPDF);
             script.onerror = () => reject(new Error('Erro ao carregar jsPDF'));
             document.head.appendChild(script);
         });
@@ -1307,98 +1142,54 @@ class ChecklistApp {
         try {
             const jsPDF = await this.loadJsPDF();
             this.generatePdfBtn.textContent = 'Gerando PDF...';
-            await new Promise(resolve => setTimeout(resolve, 500));
+            await new Promise(resolve => setTimeout(resolve, 100)); // Short delay for UI update
 
-            const doc = new jsPDF();
+            const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
             const formData = this.collectFormData();
-            const margin = 20;
+            const margin = 15;
             const pageWidth = doc.internal.pageSize.width;
-            const maxWidth = pageWidth - (margin * 2);
-            let yPosition = margin;
+            const usableWidth = pageWidth - (margin * 2);
+            let y = margin;
 
             const checkPageBreak = (neededHeight = 10) => {
-                if (yPosition + neededHeight > doc.internal.pageSize.height - margin) {
+                if (y + neededHeight > doc.internal.pageSize.height - margin) {
                     doc.addPage();
-                    yPosition = margin;
+                    y = margin;
                 }
             };
+            
+            doc.setFontSize(18);
+            doc.setFont(undefined, 'bold');
+            doc.text('Checklist de Site Profissional', margin, y);
+            y += 8;
 
-            const addWrappedText = (text, x, y, options = {}) => {
-                const {
-                    maxWidth = doc.internal.pageSize.width - (margin * 2),
-                    fontSize = 10,
-                    fontStyle = 'normal'
-                 } = options;
-
-                doc.setFontSize(fontSize);
-                doc.setFont(undefined, fontStyle);
-                const lines = doc.splitTextToSize(text, maxWidth);
-                doc.text(lines, x, y);
-                return lines.length * (fontSize * 0.35); // Approximate line height
-            };
-
-            addWrappedText('Checklist Completo para Criação de Site Profissional', margin, yPosition, { fontSize: 16, fontStyle: 'bold' });
-            yPosition += 10;
-
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
             const today = new Date().toLocaleDateString('pt-BR');
-            addWrappedText(`Data: ${today}`, margin, yPosition);
-            yPosition += 8;
-
             if (formData['nome-empresa']) {
-                addWrappedText(`Empresa: ${formData['nome-empresa']}`, margin, yPosition);
-                yPosition += 8;
+                 doc.text(`Projeto: ${formData['nome-empresa']} | Gerado em: ${today}`, margin, y);
+            } else {
+                 doc.text(`Gerado em: ${today}`, margin, y);
             }
-
-            yPosition += 5;
-            checkPageBreak(20);
-
-            addWrappedText('Resumo do Progresso', margin, yPosition, { fontSize: 12, fontStyle: 'bold' });
-            yPosition += 8;
+            y += 10;
             
-            const totalPercentage = this.totalFields > 0 ? Math.round((this.completedFields / this.totalFields) * 100) : 0;
-            addWrappedText(`Progresso Geral: ${totalPercentage}% (${this.completedFields}/${this.totalFields} itens)`, margin, yPosition);
-            yPosition += 10;
-
-            const sectionNames = {
-                'info-basicas': 'Informações Básicas',
-                'identidade-visual': 'Identidade Visual',
-                'estrutura-layout': 'Estrutura e Layout',
-                'responsividade': 'Responsividade',
-                'acessibilidade': 'Acessibilidade',
-                'performance': 'Performance',
-                'seo': 'SEO',
-                'seguranca': 'Segurança',
-                'testes': 'Testes',
-                'pos-lancamento': 'Pós-Lançamento'
-            };
-
-            Object.entries(this.sectionData).forEach(([sectionId, data]) => {
-                const percentage = data.total > 0 ? Math.round((data.completed / data.total) * 100) : 0;
-                const sectionName = sectionNames[sectionId] || sectionId;
-                addWrappedText(`${sectionName}: ${percentage}% (${data.completed}/${data.total})`, margin + 10, yPosition);
-                yPosition += 6;
-            });
-
-            yPosition += 10;
-            
+            // Título do Detalhamento
+            checkPageBreak(15);
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text('Detalhamento por Seção', margin, y);
+            y += 10;
 
             this.accordionHeaders.forEach((header) => {
-                checkPageBreak(25);
-                doc.setFontSize(14);
-                doc.setFont(undefined, 'bold');
-                doc.text('Detalhamento por Seção', margin, yPosition);
-                yPosition += 12;
-
                 const sectionId = header.getAttribute('aria-controls');
                 const sectionTitle = header.querySelector('.section-title').textContent;
                 const sectionNumber = header.querySelector('.section-number').textContent;
 
-                checkPageBreak(20);
-
+                checkPageBreak(12);
                 doc.setFontSize(12);
                 doc.setFont(undefined, 'bold');
-                doc.text(`${sectionNumber}. ${sectionTitle}`, margin, yPosition);
-                yPosition += 10;
+                doc.text(`${sectionNumber}. ${sectionTitle}`, margin, y);
+                y += 7;
 
                 const sectionElement = document.getElementById(sectionId);
                 const fields = sectionElement.querySelectorAll('input, select, textarea');
@@ -1407,72 +1198,56 @@ class ChecklistApp {
                 doc.setFont(undefined, 'normal');
 
                 fields.forEach(field => {
-                    if(!field.name) return; // Skip fields without a name
-
-                    checkPageBreak(8);
+                    if (!field.name) return;
 
                     const label = this.getFieldLabel(field);
-                    let value = '';
-                    let status = '';
+                    let valueText = '';
+                    let statusSymbol = '';
 
                     if (field.type === 'checkbox') {
-                        status = field.checked ? ' ✓' : ' ✗';
-                        // For checkboxes without a value, just show Yes/No
-                        if (field.value === 'on' || !field.value) {
-                             value = field.checked ? 'Sim' : 'Não';
-                        } else {
-                             value = field.checked ? field.value : 'Não';
-                        }
-                       
+                        statusSymbol = field.checked ? '✔' : '✗';
+                        valueText = field.checked ? 'Sim' : 'Não';
                     } else if (field.type === 'radio') {
                         if (field.checked) {
-                             status = ' ✓';
-                             value = field.value || 'Não preenchido';
+                            statusSymbol = '✔';
+                            valueText = field.value || 'Opção selecionada';
                         } else {
-                            return; // Don't print unchecked radio buttons
+                            return; // Skip unchecked radios
                         }
+                    } else {
+                        statusSymbol = field.value.trim() ? '✔' : '✗';
+                        valueText = field.value.trim() || 'Não preenchido';
                     }
-                    else {
-                        value = field.value || 'Não preenchido';
-                        status = field.value.trim() ? ' ✓' : ' ✗';
-                    }
-
-                    const text = `${status} ${label}: ${value}`;
-                    const textHeight = addWrappedText(text, margin + 5, yPosition, { maxWidth: maxWidth - 5, fontSize: 9 });
-                    yPosition += textHeight + 2;
+                    
+                    checkPageBreak(8);
+                    doc.text(`${statusSymbol} ${label}:`, margin + 2, y);
+                    const labelWidth = doc.getTextWidth(`${statusSymbol} ${label}: `);
+                    
+                    // Add wrapped text for the value
+                    const valueLines = doc.splitTextToSize(valueText, usableWidth - labelWidth - 2);
+                    doc.text(valueLines, margin + 2 + labelWidth, y);
+                    
+                    const lineHeight = valueLines.length * 4; // Approx height for 9pt font
+                    y += lineHeight + 2; 
                 });
 
-                yPosition += 8;
+                y += 5; // Espaço entre as seções
             });
 
             const pageCount = doc.internal.getNumberOfPages();
             for (let i = 1; i <= pageCount; i++) {
                 doc.setPage(i);
                 doc.setFontSize(8);
-                doc.setFont(undefined, 'normal');
-                doc.text(
-                    `Página ${i} de ${pageCount} - Checklist Profissional`,
-                    margin,
-                    doc.internal.pageSize.height - 10
-                );
+                doc.text(`Página ${i} de ${pageCount}`, pageWidth - margin, doc.internal.pageSize.height - 10, { align: 'right' });
             }
 
-            const fileName = `checklist-site-profissional-${today.replace(/\//g, '-')}.pdf`;
+            const fileName = `checklist-site-${formData['nome-empresa'] || 'projeto'}-${today.replace(/\//g, '-')}.pdf`;
             doc.save(fileName);
 
             this.showNotification('PDF gerado com sucesso!', 'success');
-
         } catch (error) {
             console.error('Erro ao gerar PDF:', error);
-            let errorMessage = 'Erro ao gerar o PDF. ';
-            
-            if (error.message.includes('jsPDF')) {
-                errorMessage += 'Problema ao carregar a biblioteca. Verifique sua conexão com a internet.';
-            } else {
-                errorMessage += 'Tente novamente em alguns instantes.';
-            }
-            
-            this.showNotification(errorMessage, 'error');
+            this.showNotification('Erro ao gerar o PDF. Verifique a conexão.', 'error');
         } finally {
             this.generatePdfBtn.classList.remove('loading');
             this.generatePdfBtn.disabled = false;
@@ -1481,101 +1256,46 @@ class ChecklistApp {
     }
 
     showNotification(message, type = 'info') {
-        const existingNotification = document.querySelector('.notification');
-        if (existingNotification) {
-            existingNotification.remove();
-        }
-
+        const existing = document.querySelector('.notification');
+        if (existing) existing.remove();
         const notification = document.createElement('div');
         notification.className = `notification notification--${type}`;
         notification.textContent = message;
-        notification.setAttribute('role', 'alert');
         document.body.appendChild(notification);
-
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.remove();
-            }
-        }, 5000);
+        setTimeout(() => notification.remove(), 5000);
     }
-
+    
     collectFormData() {
-        const formData = {};
-        const inputs = this.form.querySelectorAll('input, select, textarea');
-
-        inputs.forEach(input => {
-            if(!input.name) return;
-
-            if (input.type === 'checkbox') {
-                 if (formData[input.name]) {
-                    if (!Array.isArray(formData[input.name])) {
-                        formData[input.name] = [formData[input.name]];
-                    }
-                    if (input.checked) {
-                        formData[input.name].push(input.value);
-                    }
-                } else {
-                    formData[input.name] = input.checked ? input.value : false;
-                }
-            } else if (input.type === 'radio') {
-                if (input.checked) {
-                    formData[input.name] = input.value;
-                }
-            }
-            else {
-                formData[input.name] = input.value;
-            }
+        const data = {};
+        new FormData(this.form).forEach((value, key) => {
+            data[key] = value;
         });
-
-        return formData;
+        return data;
     }
-
+    
     getFieldLabel(field) {
-        let label = document.querySelector(`label[for="${field.id}"]`);
-
-        if (!label) {
-            label = field.closest('label');
-        }
-
-        if (!label) {
-            let prev = field.previousElementSibling;
-            while (prev && prev.tagName !== 'LABEL') {
-                prev = prev.previousElementSibling;
-            }
-            label = prev;
-        }
-
-        if (label) {
-            const labelText = label.cloneNode(true);
+        let labelElement = this.findLabelForInput(field);
+        if (labelElement) {
+            const labelText = labelElement.cloneNode(true);
             const helpIcon = labelText.querySelector('.help-icon');
-            if (helpIcon) {
-                helpIcon.remove();
-            }
-            // Remove checkmark span if it exists within the label
+            if (helpIcon) helpIcon.remove();
             const checkmark = labelText.querySelector('.checkmark');
             if(checkmark) checkmark.remove();
-
             return labelText.textContent.replace(/\s*\*\s*$/, '').trim();
         }
-
         return field.name || field.id || 'Campo sem nome';
     }
 }
 
-// Inicialização e estilos
+// Inicialização da aplicação quando o DOM estiver pronto
 document.addEventListener('DOMContentLoaded', () => {
     new ChecklistApp();
 });
 
-// Estilos CSS completos
+// Estilos CSS completos injetados via JS
 const style = document.createElement('style');
 style.textContent = `
-    @keyframes slideIn {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-    }
-
-     /* ===== ESTILOS PARA O NOVO BOTÃO (ADICIONAR) ===== */
+    /* ESTILOS PARA BOTÕES DO RODAPÉ */
     .footer .container {
         display: flex;
         flex-wrap: wrap;
@@ -1583,7 +1303,6 @@ style.textContent = `
         gap: 1rem;
         align-items: center;
     }
-
     #clearDataBtn {
         background-color: var(--color-surface-alt, #4a4a4a);
         color: var(--color-text-secondary, #ccc);
@@ -1594,20 +1313,18 @@ style.textContent = `
         border-radius: 8px;
         transition: all 0.2s ease;
     }
-
     #clearDataBtn:hover {
         background-color: #c53030; /* Vermelho perigo */
         color: #fff;
         border-color: #c53030;
         transform: translateY(-2px);
     }
-    /* =============================================== */
 
+    /* ESTILOS GERAIS E DE COMPONENTES */
     @keyframes slideIn {
         from { transform: translateX(100%); opacity: 0; }
         to { transform: translateX(0); opacity: 1; }
     }
-
     .notification {
         position: fixed; top: 20px; right: 20px; padding: 12px 20px; border-radius: 6px;
         color: white; font-weight: 500; z-index: 10000; max-width: 300px;
@@ -1616,7 +1333,6 @@ style.textContent = `
     }
     .notification--success { background-color: #32b8c6; }
     .notification--error { background-color: #ff5459; }
-    .notification--warning { background-color: #e68161; }
 
     .help-icon {
         background: none; border: none; color: var(--color-primary); cursor: pointer;
@@ -1624,16 +1340,12 @@ style.textContent = `
         align-items: center; justify-content: center; transition: all 0.2s ease;
         vertical-align: middle; line-height: 1; width: 24px; height: 24px; flex-shrink: 0;
     }
-
     .help-icon:hover {
         background-color: var(--color-primary); color: var(--color-background); transform: scale(1.1);
     }
-
     .help-icon:focus {
         outline: 2px solid var(--color-primary); outline-offset: 2px;
-        background-color: var(--color-primary); color: var(--color-background);
     }
-
     .help-icon svg { width: 16px; height: 16px; pointer-events: none; }
 
     .tooltip {
@@ -1642,145 +1354,67 @@ style.textContent = `
         max-width: 420px; min-width: 320px; z-index: 10000; animation: tooltipFadeIn 0.3s ease;
         font-family: var(--font-family-base);
     }
-
     @keyframes tooltipFadeIn {
         from { opacity: 0; transform: translateY(-10px) scale(0.95); }
         to { opacity: 1; transform: translateY(0) scale(1); }
     }
-
     .tooltip-header {
         display: flex; justify-content: space-between; align-items: center; padding: 16px 20px;
-        border-bottom: 1px solid var(--color-border); border-radius: 12px 12px 0 0;
+        border-bottom: 1px solid var(--color-border);
         background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
     }
-
     .tooltip-title {
-        margin: 0; font-size: 16px; font-weight: 600; color: var(--color-background); line-height: 1.3;
+        margin: 0; font-size: 16px; font-weight: 600; color: var(--color-background);
     }
-
     .tooltip-close {
         background: none; border: none; color: var(--color-background); cursor: pointer;
-        padding: 6px; border-radius: 6px; display: flex; align-items: center; justify-content: center;
-        transition: all 0.2s ease; opacity: 0.8;
+        padding: 6px; border-radius: 50%; display: flex; transition: all 0.2s ease; opacity: 0.8;
     }
-
     .tooltip-close:hover {
-        background-color: rgba(255, 255, 255, 0.2); opacity: 1; transform: scale(1.1);
+        background-color: rgba(255, 255, 255, 0.2); opacity: 1; transform: rotate(90deg);
     }
-
-    .tooltip-close:focus {
-        outline: 2px solid rgba(255, 255, 255, 0.5); outline-offset: 2px;
-    }
-
-    .tooltip-close svg { width: 16px; height: 16px; pointer-events: none; }
-
+    .tooltip-close svg { width: 18px; height: 18px; pointer-events: none; stroke: currentColor; stroke-width: 2.5; }
     .tooltip-content { padding: 20px; }
-
     .tooltip-description {
-        margin: 0 0 16px 0; color: var(--color-text); font-size: 14px; line-height: 1.6; font-weight: 400;
+        margin: 0 0 16px 0; color: var(--color-text); font-size: 14px; line-height: 1.6;
     }
-
     .tooltip-example, .tooltip-tips {
         margin: 16px 0 0 0; padding: 14px 16px; border-radius: 8px; font-size: 13px;
         line-height: 1.5; border-left: 4px solid;
     }
-
     .tooltip-example {
-        background-color: rgba(var(--color-success-rgb), 0.08); border-color: var(--color-success);
+        background-color: rgba(var(--color-success-rgb), 0.08);
         border-left-color: var(--color-success);
     }
-
     .tooltip-example strong {
         color: var(--color-success); font-weight: 600; font-size: 12px;
-        text-transform: uppercase; letter-spacing: 0.5px;
+        text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px;
     }
-
     .tooltip-tips {
-        background-color: rgba(var(--color-warning-rgb), 0.08); border-color: var(--color-warning);
+        background-color: rgba(var(--color-warning-rgb), 0.08);
         border-left-color: var(--color-warning);
     }
-
     .tooltip-tips strong {
         color: var(--color-warning); font-weight: 600; font-size: 12px;
-        text-transform: uppercase; letter-spacing: 0.5px;
+        text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px;
     }
-
-    .tooltip-example p, .tooltip-tips p {
-        margin: 8px 0 0 0; color: var(--color-text); font-weight: 400;
-    }
-
+    .tooltip-example p, .tooltip-tips p { margin: 0; color: var(--color-text); }
     .tooltip-docs {
-        margin-top: 16px;
-        padding-top: 12px;
-        border-top: 1px solid var(--color-border);
+        margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--color-border);
         text-align: center;
     }
-
     .tooltip-docs a {
-        color: var(--color-primary);
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 13px;
-        transition: all 0.2s ease;
+        color: var(--color-primary); text-decoration: none; font-weight: 600; font-size: 13px;
     }
-    
-    .tooltip-docs a:hover {
-        text-decoration: underline;
-        color: var(--color-primary-hover);
-    }
-
-
+    .tooltip-docs a:hover { text-decoration: underline; }
     .form-label {
-        display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin-bottom: 8px;
+        display: flex; align-items: center; flex-wrap: wrap; gap: 4px;
     }
-
-    .checkbox-label {
-        display: flex; align-items: flex-start; gap: 12px; cursor: pointer;
-        font-size: 14px; line-height: 1.5; padding: 4px 0;
-    }
-
-    .checkbox-label .help-icon { margin-left: 8px; margin-top: 2px; align-self: flex-start; }
-
-    @media (max-width: 768px) {
-        .tooltip {
-            max-width: 90vw; min-width: 280px; left: 5vw !important; right: 5vw !important; margin: 0 auto;
-        }
-        .tooltip-header { padding: 12px 16px; }
-        .tooltip-title { font-size: 15px; }
-        .tooltip-content { padding: 16px; }
-    }
-
-    @media (max-width: 480px) {
-        .tooltip {
-            max-width: 95vw; min-width: 260px; left: 2.5vw !important; right: 2.5vw !important;
-        }
-        .tooltip-content { padding: 14px; }
-        .tooltip-example, .tooltip-tips { padding: 12px; font-size: 12px; }
-        .tooltip-description { font-size: 13px; }
-        .help-icon { width: 22px; height: 22px; margin-left: 6px; }
-        .help-icon svg { width: 14px; height: 14px; }
-    }
-
-    .tooltip:focus { outline: 3px solid var(--color-primary); outline-offset: 2px; }
-    .help-icon { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+    .checkbox-label .help-icon { margin-left: auto; }
 `;
 document.head.appendChild(style);
 
-// Event listeners adicionais
-document.addEventListener('keydown', (e) => {
-    if (e.altKey && e.key === 'm') {
-        e.preventDefault();
-        document.querySelector('.main')?.focus();
-    }
-});
-
-document.addEventListener('change', (e) => {
-    if (e.target.matches('input, select, textarea')) {
-        e.target.style.transform = 'scale(1.02)';
-        setTimeout(() => { e.target.style.transform = ''; }, 150);
-    }
-});
-
+// Outros listeners globais
 document.addEventListener('submit', (e) => {
     if (e.target.id === 'checklistForm') {
         e.preventDefault();
