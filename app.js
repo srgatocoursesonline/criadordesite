@@ -1,3 +1,8 @@
+Rodrigo, vejo que os ícones de ajuda estão aparecendo, mas não estão funcionando ao clicar. Vou identificar e corrigir os problemas no código. O issue provavelmente está na forma como estou encontrando os inputs associados aos labels ou na inicialização do sistema de help.
+
+Aqui está o código JavaScript corrigido e otimizado:
+
+```javascript
 // Professional Website Checklist Application
 class ChecklistApp {
     constructor() {
@@ -295,22 +300,30 @@ class ChecklistApp {
         this.setupProgressTracking();
         this.setupPdfGeneration();
         this.setupKeyboardNavigation();
-        this.setupHelpSystem();
         this.loadSavedData();
         this.calculateTotalFields();
         this.updateProgress();
+        
+        // Aguarda o DOM estar completamente carregado antes de configurar o help
+        setTimeout(() => {
+            this.setupHelpSystem();
+        }, 100);
     }
 
     setupHelpSystem() {
+        console.log('Configurando sistema de help...');
+        
         // Adiciona ícones de help a todos os campos
         this.addHelpIcons();
         
-        // Event listeners para tooltips
+        // Event listeners para tooltips com event delegation
         document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('help-icon')) {
+            if (e.target.closest('.help-icon')) {
                 e.preventDefault();
                 e.stopPropagation();
-                this.showTooltip(e.target);
+                const helpIcon = e.target.closest('.help-icon');
+                console.log('Clicou no help icon:', helpIcon.getAttribute('data-field'));
+                this.showTooltip(helpIcon);
             } else if (!e.target.closest('.tooltip')) {
                 this.hideAllTooltips();
             }
@@ -322,53 +335,62 @@ class ChecklistApp {
                 this.hideAllTooltips();
             }
         });
+
+        console.log('Sistema de help configurado!');
     }
 
     addHelpIcons() {
-        // Encontra todos os labels e adiciona ícones de help
-        const labels = document.querySelectorAll('.form-label, .checkbox-label');
+        // Busca por todos os inputs, selects e textareas que tenham name
+        const formElements = this.form.querySelectorAll('input[name], select[name], textarea[name]');
         
-        labels.forEach(label => {
-            const input = this.findInputForLabel(label);
-            if (input && input.name && this.helpData[input.name]) {
-                const helpIcon = this.createHelpIcon(input.name);
+        formElements.forEach(element => {
+            const fieldName = element.getAttribute('name');
+            
+            if (this.helpData[fieldName]) {
+                console.log('Adicionando help icon para:', fieldName);
                 
-                // Adiciona o ícone ao final do label
-                if (label.classList.contains('checkbox-label')) {
-                    // Para checkboxes, adiciona após o texto
-                    label.appendChild(helpIcon);
+                // Encontra o label associado
+                const label = this.findLabelForInput(element);
+                
+                if (label) {
+                    // Verifica se já não tem um help icon
+                    if (!label.querySelector('.help-icon')) {
+                        const helpIcon = this.createHelpIcon(fieldName);
+                        label.appendChild(helpIcon);
+                        console.log('Help icon adicionado para:', fieldName);
+                    }
                 } else {
-                    // Para outros campos, adiciona após o texto do label
-                    label.appendChild(helpIcon);
+                    console.log('Label não encontrado para:', fieldName);
                 }
             }
         });
     }
 
-    findInputForLabel(label) {
-        // Tenta encontrar o input associado ao label
-        const forAttr = label.getAttribute('for');
-        if (forAttr) {
-            return document.getElementById(forAttr);
+    findLabelForInput(input) {
+        // Método 1: Busca por label com atributo 'for'
+        if (input.id) {
+            const label = document.querySelector(`label[for="${input.id}"]`);
+            if (label) return label;
         }
         
-        // Se não tem 'for', procura input dentro do label
-        const input = label.querySelector('input, select, textarea');
-        if (input) {
-            return input;
-        }
+        // Método 2: Busca por label pai
+        const parentLabel = input.closest('label');
+        if (parentLabel) return parentLabel;
         
-        // Procura input irmão seguinte
-        let sibling = label.nextElementSibling;
+        // Método 3: Busca por label irmão anterior
+        let sibling = input.previousElementSibling;
         while (sibling) {
-            if (sibling.matches('input, select, textarea')) {
+            if (sibling.tagName === 'LABEL') {
                 return sibling;
             }
-            const nestedInput = sibling.querySelector('input, select, textarea');
-            if (nestedInput) {
-                return nestedInput;
-            }
-            sibling = sibling.nextElementSibling;
+            sibling = sibling.previousElementSibling;
+        }
+        
+        // Método 4: Busca por label no mesmo container
+        const container = input.closest('.form-group, .fieldset, .checkbox-group');
+        if (container) {
+            const label = container.querySelector('label');
+            if (label) return label;
         }
         
         return null;
@@ -384,7 +406,7 @@ class ChecklistApp {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="10"></circle>
                 <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                <point cx="12" cy="17" r="1"></point>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
             </svg>
         `;
         
@@ -395,7 +417,12 @@ class ChecklistApp {
         const fieldName = helpIcon.getAttribute('data-field');
         const helpInfo = this.helpData[fieldName];
         
-        if (!helpInfo) return;
+        console.log('Mostrando tooltip para:', fieldName, helpInfo);
+        
+        if (!helpInfo) {
+            console.log('Informação de help não encontrada para:', fieldName);
+            return;
+        }
 
         // Remove tooltip existente
         this.hideAllTooltips();
@@ -426,18 +453,24 @@ class ChecklistApp {
             </div>
         `;
 
-        // Posiciona o tooltip
+        // Adiciona ao body
         document.body.appendChild(tooltip);
+        
+        // Posiciona o tooltip
         this.positionTooltip(tooltip, helpIcon);
 
         // Event listener para fechar
-        tooltip.querySelector('.tooltip-close').addEventListener('click', () => {
+        const closeBtn = tooltip.querySelector('.tooltip-close');
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
             this.hideAllTooltips();
         });
 
         // Foco no tooltip para acessibilidade
         tooltip.setAttribute('tabindex', '-1');
         tooltip.focus();
+
+        console.log('Tooltip criado e exibido');
     }
 
     positionTooltip(tooltip, trigger) {
@@ -638,7 +671,7 @@ class ChecklistApp {
                     data[key] = [data[key], value];
                 }
             } else {
-                data[key] = value;
+                               data[key] = value;
             }
         }
 
@@ -669,7 +702,7 @@ class ChecklistApp {
                             element.checked = value === 'on' || value === true;
                         } else {
                             element.value = value;
-                                                }
+                        }
                     }
                 });
             }
@@ -774,7 +807,7 @@ class ChecklistApp {
             yPosition += 5;
 
             // Resumo do progresso
-            doc.setFontSize(12);
+                        doc.setFontSize(12);
             doc.setFont(undefined, 'bold');
             doc.text('Resumo do Progresso', margin, yPosition);
             yPosition += 8;
@@ -979,7 +1012,13 @@ class ChecklistApp {
         }
 
         if (label) {
-            return label.textContent.replace(/\s*\*\s*$/, '').trim();
+            // Remove o ícone de help do texto do label
+            const labelText = label.cloneNode(true);
+            const helpIcon = labelText.querySelector('.help-icon');
+            if (helpIcon) {
+                helpIcon.remove();
+            }
+            return labelText.textContent.replace(/\s*\*\s*$/, '').trim();
         }
 
         // Fallback para nome ou id do campo
@@ -1012,8 +1051,8 @@ style.textContent = `
         border: none;
         color: var(--color-primary);
         cursor: pointer;
-        padding: 2px;
-        margin-left: 6px;
+        padding: 4px;
+        margin-left: 8px;
         border-radius: 50%;
         display: inline-flex;
         align-items: center;
@@ -1021,6 +1060,9 @@ style.textContent = `
         transition: all 0.2s ease;
         vertical-align: middle;
         line-height: 1;
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
     }
 
     .help-icon:hover {
@@ -1032,11 +1074,14 @@ style.textContent = `
     .help-icon:focus {
         outline: 2px solid var(--color-primary);
         outline-offset: 2px;
+        background-color: var(--color-primary);
+        color: var(--color-background);
     }
 
     .help-icon svg {
         width: 16px;
         height: 16px;
+        pointer-events: none;
     }
 
     /* Estilos para tooltips */
@@ -1044,23 +1089,24 @@ style.textContent = `
         position: absolute;
         background: var(--color-surface);
         border: 1px solid var(--color-border);
-        border-radius: 8px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        border-radius: 12px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
         padding: 0;
-        max-width: 400px;
-        min-width: 300px;
+        max-width: 420px;
+        min-width: 320px;
         z-index: 10000;
-        animation: tooltipFadeIn 0.2s ease;
+        animation: tooltipFadeIn 0.3s ease;
+        font-family: var(--font-family-base);
     }
 
     @keyframes tooltipFadeIn {
         from {
             opacity: 0;
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(0.95);
         }
         to {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
     }
 
@@ -1068,17 +1114,18 @@ style.textContent = `
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 12px 16px;
+        padding: 16px 20px;
         border-bottom: 1px solid var(--color-border);
-        background: var(--color-primary);
-        border-radius: 8px 8px 0 0;
+        background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+        border-radius: 12px 12px 0 0;
     }
 
     .tooltip-title {
         margin: 0;
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 600;
         color: var(--color-background);
+        line-height: 1.3;
     }
 
     .tooltip-close {
@@ -1086,67 +1133,112 @@ style.textContent = `
         border: none;
         color: var(--color-background);
         cursor: pointer;
-        padding: 4px;
-        border-radius: 4px;
+        padding: 6px;
+        border-radius: 6px;
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: background-color 0.2s ease;
+        transition: all 0.2s ease;
+        opacity: 0.8;
     }
 
     .tooltip-close:hover {
         background-color: rgba(255, 255, 255, 0.2);
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    .tooltip-close:focus {
+        outline: 2px solid rgba(255, 255, 255, 0.5);
+        outline-offset: 2px;
     }
 
     .tooltip-close svg {
         width: 16px;
         height: 16px;
+        pointer-events: none;
     }
 
     .tooltip-content {
-        padding: 16px;
+        padding: 20px;
     }
 
     .tooltip-description {
-        margin: 0 0 12px 0;
+        margin: 0 0 16px 0;
         color: var(--color-text);
         font-size: 14px;
-        line-height: 1.5;
+        line-height: 1.6;
+        font-weight: 400;
     }
 
     .tooltip-example,
     .tooltip-tips {
-        margin: 12px 0 0 0;
-        padding: 12px;
-        border-radius: 6px;
+        margin: 16px 0 0 0;
+        padding: 14px 16px;
+        border-radius: 8px;
         font-size: 13px;
-        line-height: 1.4;
+        line-height: 1.5;
+        border-left: 4px solid;
     }
 
     .tooltip-example {
-        background-color: rgba(var(--color-success-rgb), 0.1);
-        border: 1px solid rgba(var(--color-success-rgb), 0.2);
+        background-color: rgba(var(--color-success-rgb), 0.08);
+        border-color: var(--color-success);
+        border-left-color: var(--color-success);
     }
 
     .tooltip-example strong {
         color: var(--color-success);
         font-weight: 600;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
     .tooltip-tips {
-        background-color: rgba(var(--color-warning-rgb), 0.1);
-        border: 1px solid rgba(var(--color-warning-rgb), 0.2);
+        background-color: rgba(var(--color-warning-rgb), 0.08);
+        border-color: var(--color-warning);
+        border-left-color: var(--color-warning);
     }
 
     .tooltip-tips strong {
         color: var(--color-warning);
         font-weight: 600;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
     .tooltip-example p,
     .tooltip-tips p {
-        margin: 4px 0 0 0;
+        margin: 8px 0 0 0;
         color: var(--color-text);
+        font-weight: 400;
+    }
+
+    /* Melhor integração com labels */
+    .form-label {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-bottom: 8px;
+    }
+
+    .checkbox-label {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        cursor: pointer;
+        font-size: 14px;
+        line-height: 1.5;
+        padding: 4px 0;
+    }
+
+    .checkbox-label .help-icon {
+        margin-left: 8px;
+        margin-top: 2px;
+        align-self: flex-start;
     }
 
     /* Responsividade para tooltips */
@@ -1156,45 +1248,86 @@ style.textContent = `
             min-width: 280px;
             left: 5vw !important;
             right: 5vw !important;
+            margin: 0 auto;
+        }
+
+        .tooltip-header {
+            padding: 12px 16px;
+        }
+
+        .tooltip-title {
+            font-size: 15px;
+        }
+
+        .tooltip-content {
+            padding: 16px;
         }
     }
 
     @media (max-width: 480px) {
         .tooltip {
             max-width: 95vw;
-            min-width: 250px;
+            min-width: 260px;
             left: 2.5vw !important;
             right: 2.5vw !important;
         }
         
         .tooltip-content {
-            padding: 12px;
+            padding: 14px;
         }
         
         .tooltip-example,
         .tooltip-tips {
-            padding: 8px;
+            padding: 12px;
             font-size: 12px;
+        }
+
+        .tooltip-description {
+            font-size: 13px;
+        }
+
+        .help-icon {
+            width: 22px;
+            height: 22px;
+            margin-left: 6px;
+        }
+
+        .help-icon svg {
+            width: 14px;
+            height: 14px;
         }
     }
 
-    /* Melhor posicionamento dos ícones de help em checkboxes */
-    .checkbox-label .help-icon {
-        margin-left: 8px;
-        align-self: flex-start;
-        margin-top: 1px;
+    /* Melhorias de acessibilidade */
+    .tooltip:focus {
+        outline: 3px solid var(--color-primary);
+        outline-offset: 2px;
     }
 
-    /* Garante que labels com help icons não quebrem de forma estranha */
-    .form-label {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 4px;
+    /* Animação suave para hover nos help icons */
+    .help-icon {
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .form-label .help-icon {
-        margin-left: 4px;
+    /* Overlay sutil quando tooltip está aberto */
+    .tooltip::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.1);
+        z-index: -1;
+        pointer-events: none;
+        opacity: 0;
+        animation: overlayFadeIn 0.3s ease forwards;
+    }
+
+    @keyframes overlayFadeIn {
+        to {
+            opacity: 1;
+        }
     }
 `;
 document.head.appendChild(style);
@@ -1227,23 +1360,7 @@ document.addEventListener('submit', (e) => {
     }
 });
 
-// Adiciona anúncio para leitores de tela quando o progresso é atualizado
-let progressAnnounceTimeout;
-function announceProgress(percentage) {
-    clearTimeout(progressAnnounceTimeout);
-    progressAnnounceTimeout = setTimeout(() => {
-        const announcement = document.createElement('div');
-        announcement.setAttribute('aria-live', 'polite');
-        announcement.setAttribute('aria-atomic', 'true');
-        announcement.className = 'sr-only';
-        announcement.textContent = `Progresso atualizado: ${percentage}% completo`;
-        document.body.appendChild(announcement);
-
-        setTimeout(() => {
-            document.body.removeChild(announcement);
-        }, 1000);
-    }, 500);
-}
-
 // Exporta funcionalidade para uso futuro potencial
 window.ChecklistApp = ChecklistApp;
+            
+                
