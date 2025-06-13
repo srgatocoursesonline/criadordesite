@@ -1274,7 +1274,7 @@ class ChecklistApp {
         this.generatePdfBtn.textContent = 'Carregando biblioteca...';
 
         try {
-            const { jsPDF } = await this.loadJsPDF();
+            const jsPDF = await this.loadJsPDF();
             this.generatePdfBtn.textContent = 'Gerando PDF...';
             await new Promise(resolve => setTimeout(resolve, 500));
 
