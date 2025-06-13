@@ -23,266 +23,426 @@ class ChecklistApp {
             'pos-lancamento': { total: 7, completed: 0 }
         };
 
-        // Dados de help para todos os campos
+        // Dados de help COMPLETOS para todos os campos
         this.helpData = {
-            // Informações Básicas do Projeto
+            // ===== INFORMAÇÕES BÁSICAS DO PROJETO =====
             'nome-empresa': {
                 title: 'Nome da Empresa',
-                description: 'Nome oficial da empresa ou marca que será representada no site.',
-                example: 'Exemplo: "TechSolutions Ltda", "Padaria do João", "Consultoria Digital Pro"',
-                tips: 'Use o nome completo e oficial da empresa. Este nome aparecerá no título do site, rodapé e metadados.'
+                description: 'Nome oficial da empresa ou marca que será representada no site. Este será o nome principal que aparecerá em todo o site.',
+                example: 'Exemplos: "TechSolutions Ltda", "Padaria do João", "Consultoria Digital Pro", "Clínica Vida Saudável"',
+                tips: 'Use o nome completo e oficial da empresa. Este nome aparecerá no título do site, rodapé, metadados e certificados SSL. Evite abreviações muito técnicas.'
             },
             'setor-atuacao': {
                 title: 'Setor de Atuação',
-                description: 'Área de negócio ou mercado em que a empresa atua.',
-                example: 'Exemplo: "Tecnologia", "Alimentação", "Consultoria", "E-commerce", "Saúde"',
-                tips: 'Seja específico para ajudar na personalização do design e conteúdo do site.'
+                description: 'Área de negócio ou mercado específico em que a empresa atua. Esta informação ajuda a personalizar o design e funcionalidades.',
+                example: 'Exemplos: "Tecnologia da Informação", "Alimentação e Bebidas", "Consultoria Empresarial", "E-commerce de Moda", "Serviços de Saúde", "Educação Online"',
+                tips: 'Seja específico para ajudar na personalização do design, cores, linguagem e funcionalidades do site. Isso influencia desde o tom de comunicação até os recursos necessários.'
             },
             'publico-alvo': {
                 title: 'Público-Alvo',
-                description: 'Descrição detalhada do público que o site pretende atingir.',
-                example: 'Exemplo: "Empresas de médio porte", "Jovens de 18-35 anos", "Profissionais de TI"',
-                tips: 'Inclua faixa etária, interesses, comportamento online e necessidades específicas.'
+                description: 'Descrição detalhada do público que o site pretende atingir, incluindo características demográficas e comportamentais.',
+                example: 'Exemplos: "Empresas de médio porte (50-200 funcionários)", "Jovens de 18-35 anos interessados em tecnologia", "Profissionais de TI e desenvolvedores", "Mães de 25-45 anos", "Pequenos empresários do varejo"',
+                tips: 'Inclua faixa etária, poder aquisitivo, interesses, comportamento online, dispositivos mais usados e necessidades específicas. Quanto mais detalhado, melhor será a personalização.'
             },
             'objetivo-principal': {
                 title: 'Objetivo Principal',
-                description: 'Principal meta que o site deve alcançar para o negócio.',
-                example: 'Geração de leads, vendas online, divulgação da marca, suporte ao cliente',
-                tips: 'Defina um objetivo claro e mensurável para orientar todas as decisões de design e funcionalidade.'
+                description: 'Principal meta que o site deve alcançar para o negócio. Define toda a estratégia de desenvolvimento e métricas de sucesso.',
+                example: 'Opções: Geração de Leads, Vendas Online, Divulgação da Marca, Suporte ao Cliente, Educação/Informação, Captação de Investidores',
+                tips: 'Defina um objetivo claro e mensurável. Isso orientará todas as decisões de design, funcionalidades, call-to-actions e métricas de acompanhamento.'
             },
             'url-desejada': {
                 title: 'URL Desejada',
-                description: 'Endereço web preferido para o site (domínio).',
-                example: 'Exemplo: "www.minhaempresa.com.br", "loja.exemplo.com"',
-                tips: 'Verifique disponibilidade do domínio. Prefira nomes curtos, fáceis de lembrar e relacionados ao negócio.'
+                description: 'Endereço web preferido para o site (nome do domínio). Deve ser memorável e relacionado ao negócio.',
+                example: 'Exemplos: "www.minhaempresa.com.br", "loja.exemplo.com", "consultoria-digital.com", "clinicavidasaudavel.com.br"',
+                tips: 'Verifique disponibilidade antes de decidir. Prefira nomes curtos, fáceis de lembrar, sem hífens excessivos e relacionados ao negócio. Considere extensões .com.br para Brasil.'
             },
             'data-entrega': {
                 title: 'Data de Entrega',
-                description: 'Prazo desejado para conclusão e lançamento do site.',
-                example: 'Considere tempo para desenvolvimento, testes e ajustes',
-                tips: 'Seja realista com o prazo. Sites complexos podem levar 2-6 meses para desenvolvimento completo.'
+                description: 'Prazo desejado para conclusão e lançamento do site. Deve considerar complexidade e recursos disponíveis.',
+                example: 'Considere: Site simples (2-4 semanas), Site médio (1-2 meses), E-commerce (2-4 meses), Site complexo (3-6 meses)',
+                tips: 'Seja realista com o prazo. Inclua tempo para desenvolvimento, testes, correções, treinamento e ajustes. Sites complexos podem precisar de mais tempo para garantir qualidade.'
             },
 
-            // Identidade Visual e Branding
+            // ===== IDENTIDADE VISUAL E BRANDING =====
             'logo-empresa': {
                 title: 'Logo da Empresa',
-                description: 'Logotipo oficial da empresa em formato vetorial de alta qualidade.',
-                example: 'Formatos ideais: SVG, AI, EPS. Também aceita PNG/JPG em alta resolução',
-                tips: 'Forneça versões em diferentes cores (colorida, branca, preta) e orientações (horizontal, vertical).'
+                description: 'Logotipo oficial da empresa em formato vetorial de alta qualidade. Elemento central da identidade visual.',
+                example: 'Formatos ideais: SVG, AI, EPS, PDF. Também aceita PNG/JPG em alta resolução (mínimo 300 DPI)',
+                tips: 'Forneça versões em diferentes cores (colorida, branca, preta), orientações (horizontal, vertical) e tamanhos. Se não tem logo, considere criar antes do site.'
             },
             'manual-marca': {
                 title: 'Manual da Marca',
-                description: 'Documento que define padrões visuais, cores, tipografia e aplicações da marca.',
-                example: 'Inclui paleta de cores, fontes, espaçamentos, usos corretos e incorretos do logo',
-                tips: 'Se não existe, considere criar um guia básico com cores e fontes principais da marca.'
+                description: 'Documento que define padrões visuais, cores, tipografia e aplicações corretas da marca.',
+                example: 'Inclui: paleta de cores com códigos, fontes oficiais, espaçamentos mínimos, usos corretos e incorretos do logo, aplicações em diferentes fundos',
+                tips: 'Se não existe, considere criar um guia básico com cores principais, fontes e regras de uso do logo. Isso garante consistência visual.'
             },
             'paleta-cores': {
                 title: 'Paleta de Cores',
-                description: 'Cores oficiais da marca definidas em códigos hexadecimais.',
-                example: 'Exemplo: Azul #1E40AF, Branco #FFFFFF, Cinza #6B7280',
-                tips: 'Inclua cores primárias, secundárias e neutras. Use ferramentas como Adobe Color para harmonização.'
+                description: 'Cores oficiais da marca definidas em códigos hexadecimais precisos para uso no site.',
+                example: 'Exemplo: Azul Principal #1E40AF, Azul Secundário #3B82F6, Branco #FFFFFF, Cinza Escuro #374151, Cinza Claro #F3F4F6',
+                tips: 'Inclua cores primárias, secundárias e neutras. Use ferramentas como Adobe Color, Coolors.co para harmonização. Teste acessibilidade das combinações.'
+            },
+            'cor-primaria': {
+                title: 'Cor Primária',
+                description: 'Cor principal da marca que será usada em elementos de destaque, botões e links principais.',
+                example: 'Exemplos: #1E40AF (azul corporativo), #DC2626 (vermelho vibrante), #059669 (verde confiança), #7C3AED (roxo inovação)',
+                tips: 'Escolha uma cor que represente a personalidade da marca e tenha boa legibilidade em fundos claros e escuros. Teste em diferentes dispositivos.'
+            },
+            'cor-secundaria': {
+                title: 'Cor Secundária',
+                description: 'Cor complementar que será usada em elementos secundários, hover states e variações.',
+                example: 'Deve complementar a cor primária. Se primária é azul #1E40AF, secundária pode ser #3B82F6 (azul mais claro) ou #F59E0B (laranja complementar)',
+                tips: 'Deve harmonizar com a cor primária mas ter contraste suficiente. Use teoria das cores: complementares, análogas ou tríades.'
+            },
+            'cores-neutras': {
+                title: 'Cores Neutras',
+                description: 'Paleta de cinzas e cores neutras para textos, fundos e elementos de interface.',
+                example: 'Exemplo: Preto #000000, Cinza Escuro #374151, Cinza Médio #6B7280, Cinza Claro #D1D5DB, Branco #FFFFFF',
+                tips: 'Essencial para legibilidade e hierarquia visual. Inclua pelo menos 5 tons: do mais escuro ao mais claro. Teste contraste com WCAG.'
+            },
+            'cor-destaque': {
+                title: 'Cor de Destaque',
+                description: 'Cor especial para chamar atenção em elementos importantes como promoções, alertas ou call-to-actions especiais.',
+                example: 'Exemplos: #F59E0B (laranja energia), #EF4444 (vermelho urgência), #10B981 (verde sucesso), #8B5CF6 (roxo premium)',
+                tips: 'Use com moderação para não perder o impacto. Ideal para botões de conversão, ofertas especiais e elementos que precisam se destacar.'
             },
             'tipografia-principal': {
                 title: 'Tipografia Principal',
-                description: 'Fonte principal que será usada nos títulos e textos do site.',
-                example: 'Exemplo: "Roboto", "Open Sans", "Montserrat", "Poppins"',
-                tips: 'Escolha fontes legíveis e que reflitam a personalidade da marca. Considere fontes do Google Fonts.'
+                description: 'Fonte principal que será usada nos títulos, headings e elementos de destaque do site.',
+                example: 'Exemplos: "Roboto" (moderna), "Open Sans" (amigável), "Montserrat" (elegante), "Poppins" (jovem), "Playfair Display" (sofisticada)',
+                tips: 'Escolha fontes legíveis que reflitam a personalidade da marca. Considere fontes do Google Fonts para carregamento rápido. Teste em diferentes tamanhos.'
             },
             'tipografia-secundaria': {
                 title: 'Tipografia Secundária',
-                description: 'Fonte complementar para textos corridos e elementos secundários.',
-                example: 'Exemplo: "Inter", "Source Sans Pro", "Lato"',
-                tips: 'Deve complementar a fonte principal e garantir boa legibilidade em textos longos.'
+                description: 'Fonte complementar para textos corridos, parágrafos e elementos de interface.',
+                example: 'Exemplos: "Inter" (legível), "Source Sans Pro" (profissional), "Lato" (amigável), "Nunito Sans" (moderna), "System UI" (nativa)',
+                tips: 'Deve complementar a fonte principal e garantir excelente legibilidade em textos longos. Priorize legibilidade sobre estilo decorativo.'
             },
             'estilo-visual': {
                 title: 'Estilo Visual',
-                description: 'Abordagem visual geral que o site deve seguir.',
-                example: 'Moderno, minimalista, corporativo, criativo, elegante, descontraído',
-                tips: 'Considere o público-alvo e setor de atuação. Colete referências visuais de sites admirados.'
+                description: 'Abordagem visual geral que o site deve seguir, definindo o mood e personalidade visual.',
+                example: 'Opções: Moderno e Minimalista, Corporativo e Profissional, Criativo e Ousado, Elegante e Sofisticado, Descontraído e Amigável, Industrial e Tecnológico',
+                tips: 'Considere o público-alvo, setor de atuação e objetivos. Colete referências visuais de sites admirados. Mantenha consistência em todo o projeto.'
             },
             'referencias-visuais': {
                 title: 'Referências Visuais',
-                description: 'Sites, designs ou elementos visuais que servem de inspiração.',
-                example: 'URLs de sites admirados, imagens de referência, estilos específicos',
-                tips: 'Inclua tanto referências do mesmo setor quanto de outros que tenham elementos interessantes.'
+                description: 'Sites, designs ou elementos visuais que servem de inspiração para o projeto.',
+                example: 'Inclua: URLs de sites admirados, capturas de tela, elementos específicos (layouts, animações, cores), estilos de fotografia',
+                tips: 'Inclua referências do mesmo setor e de outros que tenham elementos interessantes. Explique o que especificamente admira em cada referência.'
             },
-
-            // Estrutura e Layout
+                        // ===== ESTRUTURA E LAYOUT =====
             'tipo-site': {
                 title: 'Tipo de Site',
-                description: 'Categoria principal que melhor define o site a ser desenvolvido.',
-                example: 'Site institucional, e-commerce, blog, portfólio, landing page',
-                tips: 'A escolha define a estrutura base e funcionalidades necessárias.'
+                description: 'Categoria principal que melhor define o site a ser desenvolvido, determinando funcionalidades e estrutura base.',
+                example: 'Opções: Site Institucional, E-commerce, Blog/Portal de Conteúdo, Portfólio, Landing Page, Sistema Web, Site de Serviços',
+                tips: 'A escolha define a arquitetura base, funcionalidades necessárias, plugins e tempo de desenvolvimento. Seja específico sobre as necessidades.'
             },
             'paginas-principais': {
                 title: 'Páginas Principais',
-                description: 'Lista das páginas essenciais que o site deve conter.',
-                example: 'Home, Sobre, Serviços, Produtos, Contato, Blog, Portfólio',
-                tips: 'Pense na jornada do usuário e inclua páginas que atendam suas necessidades.'
+                description: 'Lista das páginas essenciais que o site deve conter para atender os objetivos do negócio.',
+                example: 'Exemplos: Home, Sobre Nós, Produtos/Serviços, Portfólio, Blog, Contato, FAQ, Política de Privacidade, Termos de Uso',
+                tips: 'Pense na jornada do usuário desde a chegada até a conversão. Inclua páginas obrigatórias por lei (privacidade, termos) e páginas que geram confiança.'
             },
             'menu-navegacao': {
                 title: 'Menu de Navegação',
-                description: 'Estrutura e organização do menu principal do site.',
-                example: 'Menu horizontal, vertical, hambúrguer, mega menu, dropdown',
-                tips: 'Mantenha simplicidade e máximo de 7 itens no menu principal para melhor usabilidade.'
+                description: 'Estrutura e organização do menu principal do site, definindo como os usuários navegarão.',
+                example: 'Tipos: Menu Horizontal Superior, Menu Vertical Lateral, Menu Hambúrguer (mobile), Mega Menu (muitas opções), Menu Fixo (sticky)',
+                tips: 'Mantenha simplicidade com máximo de 7 itens principais. Use submenus para organizar. Considere comportamento em mobile e desktop.'
             },
             'layout-preferido': {
                 title: 'Layout Preferido',
-                description: 'Estrutura visual e organização dos elementos na página.',
-                example: 'Layout em grid, uma coluna, duas colunas, assimétrico, minimalista',
-                tips: 'Considere o tipo de conteúdo e como o usuário consumirá a informação.'
+                description: 'Estrutura visual e organização dos elementos na página, definindo como o conteúdo será apresentado.',
+                example: 'Opções: Layout em Grid, Uma Coluna Central, Duas Colunas (conteúdo + sidebar), Layout Assimétrico, Design Minimalista, Layout Magazine',
+                tips: 'Considere o tipo de conteúdo, público-alvo e como o usuário consumirá a informação. Teste em diferentes dispositivos.'
             },
             'call-to-action': {
                 title: 'Call-to-Action Principal',
-                description: 'Ação principal que você quer que os visitantes realizem no site.',
-                example: '"Entre em Contato", "Compre Agora", "Solicite Orçamento", "Cadastre-se"',
-                tips: 'Use verbos no imperativo e seja específico sobre o que acontece após o clique.'
+                description: 'Ação principal que você quer que os visitantes realizem no site. Define conversões e métricas de sucesso.',
+                example: 'Exemplos: "Entre em Contato", "Solicite Orçamento", "Compre Agora", "Cadastre-se Grátis", "Baixe o E-book", "Agende Consulta"',
+                tips: 'Use verbos no imperativo, seja específico sobre o benefício, crie urgência quando apropriado. Teste diferentes versões para otimizar conversões.'
             },
             'formularios-necessarios': {
                 title: 'Formulários Necessários',
-                description: 'Tipos de formulários que o site deve incluir.',
-                example: 'Contato, orçamento, newsletter, cadastro, pesquisa de satisfação',
-                tips: 'Mantenha formulários simples e solicite apenas informações essenciais.'
+                description: 'Tipos de formulários que o site deve incluir para captar leads e facilitar interações.',
+                example: 'Tipos: Contato Simples, Orçamento Detalhado, Newsletter, Cadastro de Usuário, Pesquisa de Satisfação, Agendamento, Upload de Arquivos',
+                tips: 'Mantenha formulários simples, solicite apenas informações essenciais, use validação em tempo real e confirme submissões.'
+            },
+            'funcionalidades-especiais': {
+                title: 'Funcionalidades Especiais',
+                description: 'Recursos específicos e personalizados que o site precisa ter além das funcionalidades padrão.',
+                example: 'Exemplos: Chat Online, Calculadora de Preços, Sistema de Agendamento, Galeria de Fotos, Área do Cliente, Integração com CRM',
+                tips: 'Liste todas as funcionalidades específicas do seu negócio. Considere integrações com sistemas existentes e automações necessárias.'
+            },
+            'integracao-sistemas': {
+                title: 'Integração com Sistemas',
+                description: 'Sistemas externos que precisam se conectar com o site para troca de dados e automações.',
+                example: 'Exemplos: CRM (HubSpot, RD Station), E-mail Marketing (Mailchimp), ERP, WhatsApp Business, Google Analytics, Facebook Pixel',
+                tips: 'Verifique APIs disponíveis, custos de integração e necessidade de sincronização em tempo real. Documente fluxos de dados.'
+            },
+            'area-restrita': {
+                title: 'Área Restrita',
+                description: 'Se o site precisa de áreas com acesso controlado por login e senha para usuários específicos.',
+                example: 'Tipos: Área do Cliente, Portal do Parceiro, Dashboard Administrativo, Conteúdo Premium, Curso Online',
+                tips: 'Defina níveis de acesso, funcionalidades de cada área, processo de cadastro e recuperação de senha. Considere segurança e LGPD.'
             },
 
-            // Responsividade
+            // ===== RESPONSIVIDADE =====
             'dispositivos-prioritarios': {
                 title: 'Dispositivos Prioritários',
-                description: 'Tipos de dispositivos mais importantes para o público-alvo.',
-                example: 'Desktop, smartphone, tablet, smart TV',
-                tips: 'Considere dados de analytics se já possui um site, ou pesquise hábitos do seu público.'
+                description: 'Tipos de dispositivos mais importantes para o público-alvo, definindo prioridades de otimização.',
+                example: 'Dispositivos: Desktop (1920px+), Laptop (1366px), Tablet (768px-1024px), Smartphone (320px-768px), Smart TV',
+                tips: 'Use dados do Google Analytics se já tem site, ou pesquise hábitos do seu público. Mobile-first é tendência atual.'
             },
             'breakpoints-personalizados': {
                 title: 'Breakpoints Personalizados',
-                description: 'Pontos de quebra específicos para adaptação do layout.',
-                example: 'Mobile: 320px-768px, Tablet: 768px-1024px, Desktop: 1024px+',
-                tips: 'Use breakpoints padrão do mercado, mas ajuste conforme necessidades específicas.'
+                description: 'Pontos de quebra específicos onde o layout se adapta para diferentes tamanhos de tela.',
+                example: 'Padrão: Mobile 320px-768px, Tablet 768px-1024px, Desktop 1024px-1440px, Large Desktop 1440px+',
+                tips: 'Use breakpoints padrão do mercado para compatibilidade, mas ajuste conforme necessidades específicas do projeto.'
             },
             'comportamento-mobile': {
                 title: 'Comportamento Mobile',
-                description: 'Como o site deve se comportar em dispositivos móveis.',
-                example: 'Menu hambúrguer, botões maiores, scroll vertical, gestos touch',
-                tips: 'Priorize a experiência mobile-first, considerando dedos e telas menores.'
+                description: 'Como o site deve se comportar especificamente em dispositivos móveis para melhor experiência.',
+                example: 'Recursos: Menu Hambúrguer, Botões Touch-Friendly (44px+), Scroll Vertical, Gestos de Swipe, Click to Call, Teclado Otimizado',
+                tips: 'Priorize experiência mobile-first. Considere dedos, telas menores, conexões mais lentas e contexto de uso móvel.'
+            },
+            'orientacao-tela': {
+                title: 'Orientação de Tela',
+                description: 'Como o site deve se comportar quando dispositivos móveis são rotacionados.',
+                example: 'Comportamentos: Adaptar Layout Automaticamente, Manter Orientação Portrait, Otimizar para Landscape, Bloquear Rotação',
+                tips: 'Teste em ambas orientações. Alguns conteúdos funcionam melhor em landscape (vídeos, tabelas) outros em portrait (leitura).'
             },
 
-            // Acessibilidade
+            // ===== ACESSIBILIDADE =====
             'nivel-wcag': {
                 title: 'Nível WCAG',
-                description: 'Nível de conformidade com as diretrizes de acessibilidade web.',
-                example: 'A (básico), AA (recomendado), AAA (avançado)',
-                tips: 'WCAG 2.1 AA é o padrão recomendado e exigido por lei em muitos países.'
+                description: 'Nível de conformidade com as Diretrizes de Acessibilidade para Conteúdo Web, definindo inclusão digital.',
+                example: 'Níveis: A (básico), AA (recomendado e legal), AAA (avançado). WCAG 2.1 AA é padrão internacional.',
+                tips: 'WCAG 2.1 AA é recomendado e exigido por lei em muitos países. AAA é ideal para sites governamentais e de saúde.'
             },
             'recursos-acessibilidade': {
                 title: 'Recursos de Acessibilidade',
-                description: 'Funcionalidades específicas para melhorar a acessibilidade.',
-                example: 'Alto contraste, aumento de fonte, navegação por teclado, leitor de tela',
-                tips: 'Considere usuários com deficiências visuais, auditivas, motoras e cognitivas.'
+                description: 'Funcionalidades específicas para melhorar a experiência de pessoas com deficiências.',
+                example: 'Recursos: Alto Contraste, Aumento de Fonte, Navegação por Teclado, Leitor de Tela, Descrição de Imagens (Alt Text), Legendas em Vídeos',
+                tips: 'Considere deficiências visuais, auditivas, motoras e cognitivas. Teste com leitores de tela e navegação apenas por teclado.'
             },
             'publico-pcd': {
                 title: 'Público PcD',
-                description: 'Se o site atende especificamente pessoas com deficiência.',
-                example: 'Sim, se for site governamental, educacional ou de saúde',
-                tips: 'Sites públicos e de grande alcance devem priorizar acessibilidade total.'
+                description: 'Se o site atende especificamente pessoas com deficiência ou tem obrigação legal de acessibilidade.',
+                example: 'Obrigatório para: Sites Governamentais, Educacionais, Saúde, Empresas Públicas, E-commerce grandes',
+                tips: 'Sites públicos e de grande alcance devem priorizar acessibilidade total. Considere certificação e auditorias especializadas.'
+            },
+            'contraste-cores': {
+                title: 'Contraste de Cores',
+                description: 'Verificação se as combinações de cores atendem aos padrões mínimos de contraste para legibilidade.',
+                example: 'Padrões: Texto normal 4.5:1, Texto grande 3:1, Elementos gráficos 3:1. Use ferramentas como WebAIM Contrast Checker',
+                tips: 'Teste todas as combinações de cores do site. Considere daltonismo e diferentes condições de iluminação.'
+            },
+            'navegacao-teclado': {
+                title: 'Navegação por Teclado',
+                description: 'Garantir que todas as funcionalidades sejam acessíveis usando apenas o teclado.',
+                example: 'Teclas: Tab (navegar), Enter (ativar), Espaço (selecionar), Setas (menus), Esc (fechar). Indicadores visuais de foco',
+                tips: 'Teste navegação completa sem mouse. Garanta ordem lógica de foco e indicadores visuais claros.'
+            },
+            'leitores-tela': {
+                title: 'Leitores de Tela',
+                description: 'Compatibilidade com softwares que leem o conteúdo da tela para pessoas com deficiência visual.',
+                example: 'Leitores: NVDA, JAWS, VoiceOver (Mac), TalkBack (Android). Requer HTML semântico e ARIA labels',
+                tips: 'Use HTML semântico, adicione alt text em imagens, labels em formulários e estrutura hierárquica clara.'
+            },
+            'tamanho-fonte': {
+                title: 'Tamanho de Fonte',
+                description: 'Definir tamanhos mínimos de fonte e possibilidade de ampliação para melhor legibilidade.',
+                example: 'Mínimos: 16px para texto corrido, 14px para elementos de interface. Ampliação até 200% sem perda de funcionalidade',
+                tips: 'Evite fontes muito pequenas. Permita zoom até 200%. Use unidades relativas (rem, em) para escalabilidade.'
             },
 
-            // Performance
+            // ===== PERFORMANCE =====
             'tempo-carregamento': {
                 title: 'Tempo de Carregamento',
-                description: 'Tempo máximo aceitável para carregamento completo das páginas.',
-                example: 'Ideal: até 3 segundos, Aceitável: até 5 segundos',
-                tips: 'Páginas que carregam em até 3 segundos têm melhor taxa de conversão.'
+                description: 'Tempo máximo aceitável para carregamento completo das páginas, impactando experiência e SEO.',
+                example: 'Metas: Ideal até 2 segundos, Bom até 3 segundos, Aceitável até 5 segundos. Mobile pode ser 1s mais lento',
+                tips: 'Páginas que carregam em até 3 segundos têm melhor taxa de conversão. Use ferramentas como PageSpeed Insights para medir.'
             },
             'otimizacao-imagens': {
                 title: 'Otimização de Imagens',
-                description: 'Estratégias para reduzir o tamanho das imagens sem perder qualidade.',
-                example: 'WebP, compressão, lazy loading, responsive images',
-                tips: 'Imagens representam 60-70% do peso de uma página. Otimização é essencial.'
+                description: 'Estratégias para reduzir o tamanho das imagens sem perder qualidade visual.',
+                example: 'Técnicas: Formato WebP, Compressão, Lazy Loading, Responsive Images, CDN, Sprites CSS',
+                tips: 'Imagens representam 60-70% do peso de uma página. Use ferramentas como TinyPNG, ImageOptim. Considere formatos modernos.'
             },
             'cdn-necessario': {
                 title: 'CDN Necessário',
-                description: 'Se o site precisa de uma rede de distribuição de conteúdo.',
-                example: 'Sim para sites globais, e-commerce, alta audiência',
-                tips: 'CDN melhora velocidade para usuários em diferentes regiões geográficas.'
+                description: 'Se o site precisa de uma rede de distribuição de conteúdo para melhorar velocidade global.',
+                example: 'Recomendado para: Sites globais, E-commerce, Alta audiência, Muitas imagens/vídeos. Provedores: Cloudflare, AWS CloudFront',
+                tips: 'CDN melhora velocidade para usuários distantes do servidor. Essencial para sites com audiência internacional.'
             },
-
-            // SEO
+            'cache-estrategia': {
+                title: 'Estratégia de Cache',
+                description: 'Como o site armazenará dados temporariamente para acelerar carregamentos futuros.',
+                example: 'Tipos: Cache do Navegador, Cache do Servidor, Cache de CDN, Cache de Banco de Dados. Tempos: 1 ano para assets, 1 dia para HTML',
+                tips: 'Configure cache adequadamente para balance entre performance e atualizações. Use versionamento para assets.'
+            },
+            'minificacao-codigo': {
+                title: 'Minificação de Código',
+                description: 'Processo de reduzir o tamanho dos arquivos CSS, JavaScript e HTML removendo espaços e comentários.',
+                example: 'Ferramentas: Webpack, Gulp, Parcel para automação. Redução típica: 20-40% no tamanho dos arquivos',
+                tips: 'Essencial para performance. Use ferramentas de build automáticas. Mantenha versões originais para desenvolvimento.'
+            },
+                        // ===== SEO (Search Engine Optimization) =====
             'palavras-chave': {
                 title: 'Palavras-chave Principais',
-                description: 'Termos que o público usa para encontrar seus produtos/serviços.',
-                example: '"consultoria digital", "desenvolvimento web", "marketing online"',
-                tips: 'Use ferramentas como Google Keyword Planner, SEMrush ou Ubersuggest para pesquisa.'
+                description: 'Termos que o público usa para encontrar seus produtos/serviços nos mecanismos de busca.',
+                example: 'Exemplos: "consultoria digital São Paulo", "desenvolvimento web responsivo", "marketing online para PMEs", "clínica dermatológica Belo Horizonte"',
+                tips: 'Use ferramentas como Google Keyword Planner, SEMrush, Ubersuggest. Foque em long-tail keywords com menos concorrência mas alta intenção.'
             },
             'concorrentes-seo': {
                 title: 'Concorrentes SEO',
-                description: 'Sites concorrentes que aparecem bem nos resultados de busca.',
-                example: 'URLs de sites concorrentes que rankeiam bem no Google',
-                tips: 'Analise suas estratégias de conteúdo, palavras-chave e estrutura.'
+                description: 'Sites concorrentes que aparecem bem posicionados nos resultados de busca para suas palavras-chave.',
+                example: 'Analise: URLs dos top 10 resultados, suas estratégias de conteúdo, palavras-chave que usam, estrutura de links',
+                tips: 'Analise pelo menos 5 concorrentes principais. Veja suas estratégias de conteúdo, palavras-chave, backlinks e estrutura técnica.'
             },
             'meta-descriptions': {
                 title: 'Meta Descriptions',
-                description: 'Descrições que aparecem nos resultados de busca do Google.',
-                example: 'Máximo 160 caracteres, incluindo palavra-chave principal',
-                tips: 'Seja persuasivo e inclua call-to-action. É o "anúncio" do seu site no Google.'
+                description: 'Descrições que aparecem nos resultados de busca do Google, influenciando taxa de cliques.',
+                example: 'Estrutura: "Palavra-chave + benefício + call-to-action". Máximo 160 caracteres. Ex: "Desenvolvimento web profissional em SP. Sites responsivos e otimizados. Orçamento grátis!"',
+                tips: 'Seja persuasivo, inclua palavra-chave principal, benefício claro e call-to-action. É o "anúncio" gratuito do seu site no Google.'
+            },
+            'estrutura-urls': {
+                title: 'Estrutura de URLs',
+                description: 'Como as URLs das páginas serão organizadas para facilitar navegação e SEO.',
+                example: 'Boas práticas: /servicos/desenvolvimento-web/, /blog/dicas-seo/, /contato/. Evite: /page?id=123, URLs muito longas',
+                tips: 'Use URLs amigáveis, incluam palavras-chave, sejam descritivas e mantenham hierarquia lógica. Evite caracteres especiais.'
+            },
+            'sitemap-xml': {
+                title: 'Sitemap XML',
+                description: 'Arquivo que lista todas as páginas do site para facilitar indexação pelos mecanismos de busca.',
+                example: 'Inclui: URLs de todas as páginas, data de modificação, frequência de atualização, prioridade relativa',
+                tips: 'Gere automaticamente, atualize quando adicionar páginas, submeta ao Google Search Console e Bing Webmaster Tools.'
+            },
+            'robots-txt': {
+                title: 'Arquivo Robots.txt',
+                description: 'Arquivo que instrui os robôs dos mecanismos de busca sobre quais páginas podem ou não indexar.',
+                example: 'Bloquear: /admin/, /carrinho/, /checkout/. Permitir: /blog/, /produtos/, /servicos/. Incluir sitemap',
+                tips: 'Bloqueie páginas administrativas, de checkout, duplicadas. Sempre inclua referência ao sitemap XML.'
+            },
+            'schema-markup': {
+                title: 'Schema Markup',
+                description: 'Código estruturado que ajuda mecanismos de busca a entender melhor o conteúdo do site.',
+                example: 'Tipos: Empresa (LocalBusiness), Produtos, Artigos, FAQ, Avaliações, Eventos, Receitas',
+                tips: 'Use schema apropriado para seu tipo de negócio. Pode gerar rich snippets nos resultados de busca, melhorando CTR.'
+            },
+            'velocidade-seo': {
+                title: 'Velocidade para SEO',
+                description: 'Otimizações específicas de velocidade que impactam diretamente no ranking dos mecanismos de busca.',
+                example: 'Core Web Vitals: LCP < 2.5s, FID < 100ms, CLS < 0.1. Use PageSpeed Insights para medir',
+                tips: 'Google usa velocidade como fator de ranking. Foque em Core Web Vitals, otimize para mobile, use AMP se necessário.'
             },
 
-            // Segurança
+            // ===== SEGURANÇA =====
             'certificado-ssl': {
                 title: 'Certificado SSL',
-                description: 'Certificado que garante conexão segura (HTTPS).',
-                example: 'Let\'s Encrypt (gratuito), Certificados pagos (EV, OV)',
-                tips: 'Essencial para SEO e confiança. Google penaliza sites sem HTTPS.'
+                description: 'Certificado digital que garante conexão segura (HTTPS) entre usuário e servidor.',
+                example: 'Tipos: Let\'s Encrypt (gratuito), DV (Domain Validated), OV (Organization Validated), EV (Extended Validation)',
+                tips: 'Essencial para SEO, confiança e LGPD. Google penaliza sites sem HTTPS. EV é recomendado para e-commerce.'
             },
             'backup-automatico': {
                 title: 'Backup Automático',
-                description: 'Sistema de backup automático do site e banco de dados.',
-                example: 'Diário, semanal, mensal, com múltiplas versões',
-                tips: 'Configure backups automáticos e teste a restauração periodicamente.'
+                description: 'Sistema de backup automático do site, banco de dados e arquivos para recuperação em emergências.',
+                example: 'Frequências: Diário (sites dinâmicos), Semanal (sites estáticos), Mensal (arquivos). Mantenha múltiplas versões',
+                tips: 'Configure backups automáticos, teste restauração regularmente, mantenha cópias em locais diferentes (nuvem + local).'
             },
             'firewall-waf': {
                 title: 'Firewall/WAF',
-                description: 'Proteção contra ataques maliciosos e tentativas de invasão.',
-                example: 'Cloudflare, Sucuri, ModSecurity, firewalls de hosting',
-                tips: 'WAF (Web Application Firewall) é essencial para sites com dados sensíveis.'
+                description: 'Web Application Firewall que protege contra ataques maliciosos, tentativas de invasão e vulnerabilidades.',
+                example: 'Provedores: Cloudflare, Sucuri, ModSecurity, AWS WAF. Protege contra: SQL injection, XSS, DDoS, bots maliciosos',
+                tips: 'WAF é essencial para sites com dados sensíveis, e-commerce, formulários. Configure regras específicas para seu tipo de site.'
+            },
+            'atualizacoes-seguranca': {
+                title: 'Atualizações de Segurança',
+                description: 'Plano para manter sistema, plugins e temas sempre atualizados com patches de segurança.',
+                example: 'Cronograma: WordPress core (imediato), Plugins críticos (semanal), Temas (mensal), PHP/servidor (conforme necessário)',
+                tips: 'Atualizações previnem 90% dos ataques. Teste em ambiente de desenvolvimento antes de aplicar em produção.'
+            },
+            'monitoramento-seguranca': {
+                title: 'Monitoramento de Segurança',
+                description: 'Sistema de monitoramento contínuo para detectar tentativas de invasão e atividades suspeitas.',
+                example: 'Ferramentas: Wordfence, Sucuri Security, Malware Detection, Log Analysis, Uptime Monitoring',
+                tips: 'Configure alertas em tempo real, monitore tentativas de login, scaneie malware regularmente, analise logs de acesso.'
             },
 
-            // Testes
+            // ===== TESTES =====
             'testes-dispositivos': {
                 title: 'Testes em Dispositivos',
-                description: 'Dispositivos reais onde o site será testado.',
-                example: 'iPhone, Android, iPad, laptops, desktops',
-                tips: 'Teste em dispositivos reais, não apenas emuladores. Inclua diferentes tamanhos de tela.'
+                description: 'Dispositivos reais onde o site será testado para garantir funcionamento perfeito.',
+                example: 'Essenciais: iPhone (Safari), Android (Chrome), iPad, Laptop Windows, Desktop Mac. Diferentes tamanhos de tela',
+                tips: 'Teste em dispositivos reais, não apenas emuladores. Inclua diferentes sistemas operacionais, navegadores e tamanhos de tela.'
             },
             'testes-navegadores': {
                 title: 'Testes em Navegadores',
-                description: 'Navegadores onde o site deve funcionar perfeitamente.',
-                example: 'Chrome, Firefox, Safari, Edge, Opera',
-                tips: 'Priorize navegadores mais usados pelo seu público. Verifique analytics para dados.'
+                description: 'Navegadores onde o site deve funcionar perfeitamente, considerando compatibilidade e funcionalidades.',
+                example: 'Prioritários: Chrome (70%), Safari (15%), Firefox (8%), Edge (5%). Teste versões atuais e 1-2 anteriores',
+                tips: 'Priorize navegadores mais usados pelo seu público. Verifique Google Analytics para dados específicos. Teste funcionalidades JavaScript.'
             },
             'testes-velocidade': {
                 title: 'Testes de Velocidade',
-                description: 'Ferramentas para medir e otimizar a velocidade do site.',
-                example: 'Google PageSpeed, GTmetrix, Pingdom, WebPageTest',
-                tips: 'Teste regularmente e mantenha score acima de 90 no PageSpeed Insights.'
+                description: 'Ferramentas e métricas para medir e otimizar a velocidade de carregamento do site.',
+                example: 'Ferramentas: Google PageSpeed Insights, GTmetrix, Pingdom, WebPageTest, Lighthouse. Metas: >90 no PageSpeed',
+                tips: 'Teste regularmente, em diferentes horários e localizações. Foque em Core Web Vitals. Otimize baseado nos resultados.'
+            },
+            'testes-formularios': {
+                title: 'Testes de Formulários',
+                description: 'Verificação completa de todos os formulários do site para garantir funcionamento e entrega.',
+                example: 'Teste: Validação de campos, mensagens de erro, confirmação de envio, recebimento de e-mails, integração com CRM',
+                tips: 'Teste todos os cenários: campos obrigatórios, formatos inválidos, spam protection, notificações automáticas.'
+            },
+            'testes-seguranca': {
+                title: 'Testes de Segurança',
+                description: 'Verificações de segurança para identificar vulnerabilidades antes do lançamento.',
+                example: 'Testes: SQL Injection, XSS, CSRF, Upload de arquivos, força bruta em login, exposição de dados sensíveis',
+                tips: 'Use ferramentas como OWASP ZAP, realizar pentests, verificar configurações de servidor, testar backup/restore.'
+            },
+            'testes-acessibilidade': {
+                title: 'Testes de Acessibilidade',
+                description: 'Verificação de conformidade com padrões de acessibilidade e usabilidade para pessoas com deficiências.',
+                example: 'Ferramentas: WAVE, axe DevTools, Lighthouse Accessibility, testes manuais com leitores de tela',
+                tips: 'Teste navegação por teclado, contraste de cores, alt text em imagens, estrutura semântica, compatibilidade com leitores de tela.'
+            },
+            'testes-seo': {
+                title: 'Testes de SEO',
+                description: 'Verificação de elementos técnicos de SEO antes do lançamento para garantir boa indexação.',
+                example: 'Verificar: Meta tags, estrutura de URLs, sitemap XML, robots.txt, schema markup, velocidade, mobile-friendly',
+                tips: 'Use Google Search Console, teste rich snippets, verifique indexação, analise estrutura de links internos.'
             },
 
-            // Pós-Lançamento
+            // ===== PÓS-LANÇAMENTO =====
             'manutencao-preventiva': {
                 title: 'Manutenção Preventiva',
-                description: 'Plano de manutenção regular para manter o site funcionando bem.',
-                example: 'Atualizações mensais, backups, monitoramento, otimizações',
-                tips: 'Manutenção preventiva evita problemas maiores e mantém performance.'
+                description: 'Plano de manutenção regular para manter o site funcionando perfeitamente e seguro.',
+                example: 'Atividades: Atualizações de segurança, backup verification, monitoramento uptime, otimização performance, limpeza de spam',
+                tips: 'Manutenção preventiva evita problemas maiores e custos de recuperação. Documente todas as atividades realizadas.'
             },
             'analytics-configuracao': {
-                title: 'Configuração Analytics',
-                description: 'Ferramentas de análise para monitorar performance do site.',
-                example: 'Google Analytics, Google Search Console, Hotjar, Crazy Egg',
-                tips: 'Configure desde o lançamento para ter dados históricos completos.'
+                title: 'Configuração de Analytics',
+                description: 'Ferramentas de análise para monitorar performance, comportamento dos usuários e conversões.',
+                example: 'Essenciais: Google Analytics 4, Google Search Console, Facebook Pixel, Hotjar/Crazy Egg para heatmaps',
+                tips: 'Configure desde o lançamento para ter dados históricos completos. Defina goals, eventos e conversões importantes.'
             },
             'estrategia-conteudo': {
                 title: 'Estratégia de Conteúdo',
-                description: 'Plano para criação e publicação regular de conteúdo.',
-                example: 'Blog semanal, posts redes sociais, newsletters, atualizações',
-                tips: 'Conteúdo regular melhora SEO e mantém audiência engajada.'
+                description: 'Plano para criação e publicação regular de conteúdo para manter site ativo e melhorar SEO.',
+                example: 'Atividades: Blog semanal, posts redes sociais, newsletters mensais, atualizações de produtos, cases de sucesso',
+                tips: 'Conteúdo regular melhora SEO e mantém audiência engajada. Crie calendário editorial e mantenha consistência.'
+            },
+            'monitoramento-uptime': {
+                title: 'Monitoramento de Uptime',
+                description: 'Sistema para monitorar se o site está sempre online e funcionando corretamente.',
+                example: 'Ferramentas: UptimeRobot, Pingdom, StatusCake. Alertas: E-mail, SMS, Slack quando site fica offline',
+                tips: 'Configure monitoramento 24/7 com alertas imediatos. Monitore não só homepage mas páginas críticas como checkout.'
+            },
+            'plano-crescimento': {
+                title: 'Plano de Crescimento',
+                description: 'Estratégia para evolução do site conforme crescimento do negócio e novas necessidades.',
+                example: 'Fases: Lançamento básico, adição de funcionalidades, otimizações baseadas em dados, expansão para novos mercados',
+                tips: 'Planeje evolução baseada em métricas reais. Mantenha flexibilidade para adicionar funcionalidades conforme necessidade.'
             }
         };
 
@@ -360,7 +520,6 @@ class ChecklistApp {
             }
         });
     }
-
     findLabelForInput(input) {
         // Método 1: Busca por label com atributo 'for'
         if (input.id) {
@@ -507,6 +666,7 @@ class ChecklistApp {
         });
     }
 
+    // Resto dos métodos da classe (setupAccordion, validateField, etc. - mantém os mesmos do código anterior)
     setupAccordion() {
         this.accordionHeaders.forEach((header, index) => {
             header.addEventListener('click', (e) => {
@@ -639,7 +799,6 @@ class ChecklistApp {
     }
 
     setupKeyboardNavigation() {
-        // Focus management for form elements
         const focusableElements = this.form.querySelectorAll(
             'button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
         );
@@ -647,7 +806,6 @@ class ChecklistApp {
         focusableElements.forEach(element => {
             element.addEventListener('keydown', (e) => {
                 if (e.key === 'Tab') {
-                    // Let default tab behavior work
                     return;
                 }
             });
@@ -666,11 +824,10 @@ class ChecklistApp {
                     data[key] = [data[key], value];
                 }
             } else {
-                               data[key] = value;
+                data[key] = value;
             }
         }
 
-        // Save checkboxes that aren't checked
         const checkboxes = this.form.querySelectorAll('input[type="checkbox"]');
         checkboxes.forEach(checkbox => {
             if (!checkbox.checked) {
@@ -706,22 +863,18 @@ class ChecklistApp {
         }
     }
 
-    // Função para carregar jsPDF dinamicamente se necessário
     async loadJsPDF() {
         return new Promise((resolve, reject) => {
-            // Verifica se jsPDF já está carregado
             if (window.jspdf && window.jspdf.jsPDF) {
                 resolve(window.jspdf.jsPDF);
                 return;
             }
 
-            // Verifica outras formas de acesso à biblioteca
             if (window.jsPDF) {
                 resolve(window.jsPDF);
                 return;
             }
 
-            // Carrega a biblioteca dinamicamente
             const script = document.createElement('script');
             script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
             script.onload = () => {
@@ -739,33 +892,22 @@ class ChecklistApp {
     }
 
     async generatePDF() {
-        // Atualiza o estado visual do botão
         this.generatePdfBtn.classList.add('loading');
         this.generatePdfBtn.disabled = true;
         this.generatePdfBtn.textContent = 'Carregando biblioteca...';
 
         try {
-            // Carrega jsPDF se necessário
             const jsPDF = await this.loadJsPDF();
-            
             this.generatePdfBtn.textContent = 'Gerando PDF...';
-
-            // Aguarda um momento para o feedback visual
             await new Promise(resolve => setTimeout(resolve, 500));
 
-            // Cria o documento PDF
             const doc = new jsPDF();
-
-            // Coleta dados do formulário
             const formData = this.collectFormData();
-
-            // Configuração do PDF
             const margin = 20;
             const pageWidth = doc.internal.pageSize.width;
             const maxWidth = pageWidth - (margin * 2);
             let yPosition = margin;
 
-            // Função auxiliar para adicionar nova página se necessário
             const checkPageBreak = (neededHeight = 10) => {
                 if (yPosition + neededHeight > doc.internal.pageSize.height - margin) {
                     doc.addPage();
@@ -773,7 +915,6 @@ class ChecklistApp {
                 }
             };
 
-            // Função auxiliar para adicionar texto com quebra de linha
             const addWrappedText = (text, x, y, maxWidth, fontSize = 10) => {
                 doc.setFontSize(fontSize);
                 const lines = doc.splitTextToSize(text, maxWidth);
@@ -781,13 +922,11 @@ class ChecklistApp {
                 return lines.length * (fontSize * 0.35);
             };
 
-            // Cabeçalho
             doc.setFontSize(16);
             doc.setFont(undefined, 'bold');
             doc.text('Checklist Completo para Criação de Site Profissional', margin, yPosition);
             yPosition += 10;
 
-            // Informações da empresa e data
             doc.setFontSize(10);
             doc.setFont(undefined, 'normal');
             const today = new Date().toLocaleDateString('pt-BR');
@@ -801,8 +940,7 @@ class ChecklistApp {
 
             yPosition += 5;
 
-            // Resumo do progresso
-                        doc.setFontSize(12);
+            doc.setFontSize(12);
             doc.setFont(undefined, 'bold');
             doc.text('Resumo do Progresso', margin, yPosition);
             yPosition += 8;
@@ -813,7 +951,6 @@ class ChecklistApp {
             doc.text(`Progresso Geral: ${totalPercentage}% (${this.completedFields}/${this.totalFields} itens)`, margin, yPosition);
             yPosition += 10;
 
-            // Resumos das seções
             const sectionNames = {
                 'info-basicas': 'Informações Básicas',
                 'identidade-visual': 'Identidade Visual',
@@ -837,13 +974,11 @@ class ChecklistApp {
             yPosition += 10;
             checkPageBreak(20);
 
-            // Seções detalhadas
             doc.setFontSize(14);
             doc.setFont(undefined, 'bold');
             doc.text('Detalhamento por Seção', margin, yPosition);
             yPosition += 12;
 
-            // Processa cada seção
             this.accordionHeaders.forEach((header) => {
                 const sectionId = header.getAttribute('aria-controls');
                 const sectionTitle = header.querySelector('.section-title').textContent;
@@ -851,13 +986,11 @@ class ChecklistApp {
 
                 checkPageBreak(20);
 
-                // Cabeçalho da seção
                 doc.setFontSize(12);
                 doc.setFont(undefined, 'bold');
                 doc.text(`${sectionNumber}. ${sectionTitle}`, margin, yPosition);
                 yPosition += 10;
 
-                // Campos da seção
                 const sectionElement = document.getElementById(sectionId);
                 const fields = sectionElement.querySelectorAll('input, select, textarea');
 
@@ -887,7 +1020,6 @@ class ChecklistApp {
                 yPosition += 8;
             });
 
-            // Rodapé em todas as páginas
             const pageCount = doc.internal.getNumberOfPages();
             for (let i = 1; i <= pageCount; i++) {
                 doc.setPage(i);
@@ -900,11 +1032,9 @@ class ChecklistApp {
                 );
             }
 
-            // Salva o PDF
             const fileName = `checklist-site-profissional-${today.replace(/\//g, '-')}.pdf`;
             doc.save(fileName);
 
-            // Feedback de sucesso
             this.showNotification('PDF gerado com sucesso!', 'success');
 
         } catch (error) {
@@ -919,22 +1049,18 @@ class ChecklistApp {
             
             this.showNotification(errorMessage, 'error');
         } finally {
-            // Restaura o estado do botão
             this.generatePdfBtn.classList.remove('loading');
             this.generatePdfBtn.disabled = false;
             this.generatePdfBtn.textContent = '📄 Gerar PDF';
         }
     }
 
-    // Função para exibir notificações
     showNotification(message, type = 'info') {
-        // Remove notificação existente se houver
         const existingNotification = document.querySelector('.notification');
         if (existingNotification) {
             existingNotification.remove();
         }
 
-        // Cria nova notificação
         const notification = document.createElement('div');
         notification.className = `notification notification--${type}`;
         notification.textContent = message;
@@ -952,7 +1078,6 @@ class ChecklistApp {
             animation: slideIn 0.3s ease;
         `;
 
-        // Define cores baseadas no tipo
         const colors = {
             success: '#32b8c6',
             error: '#ff5459',
@@ -961,11 +1086,8 @@ class ChecklistApp {
         };
 
         notification.style.backgroundColor = colors[type] || colors.info;
-
-        // Adiciona ao documento
         document.body.appendChild(notification);
 
-        // Remove após 5 segundos
         setTimeout(() => {
             if (notification.parentNode) {
                 notification.remove();
@@ -989,16 +1111,13 @@ class ChecklistApp {
     }
 
     getFieldLabel(field) {
-        // Tenta encontrar label pelo atributo 'for'
         let label = document.querySelector(`label[for="${field.id}"]`);
 
         if (!label) {
-            // Tenta encontrar label pai
             label = field.closest('label');
         }
 
         if (!label) {
-            // Tenta encontrar label irmão anterior
             let prev = field.previousElementSibling;
             while (prev && prev.tagName !== 'LABEL') {
                 prev = prev.previousElementSibling;
@@ -1007,7 +1126,6 @@ class ChecklistApp {
         }
 
         if (label) {
-            // Remove o ícone de help do texto do label
             const labelText = label.cloneNode(true);
             const helpIcon = labelText.querySelector('.help-icon');
             if (helpIcon) {
@@ -1016,338 +1134,165 @@ class ChecklistApp {
             return labelText.textContent.replace(/\s*\*\s*$/, '').trim();
         }
 
-        // Fallback para nome ou id do campo
         return field.name || field.id || 'Campo sem nome';
     }
 }
 
-// Inicializa a aplicação quando o DOM estiver carregado
+// Inicialização e estilos
 document.addEventListener('DOMContentLoaded', () => {
     new ChecklistApp();
 });
 
-// Adiciona estilos para animação de notificação e tooltips
+// Estilos CSS completos
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
     }
 
-    /* Estilos para ícones de help */
     .help-icon {
-        background: none;
-        border: none;
-        color: var(--color-primary);
-        cursor: pointer;
-        padding: 4px;
-        margin-left: 8px;
-        border-radius: 50%;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s ease;
-        vertical-align: middle;
-        line-height: 1;
-        width: 24px;
-        height: 24px;
-        flex-shrink: 0;
+        background: none; border: none; color: var(--color-primary); cursor: pointer;
+        padding: 4px; margin-left: 8px; border-radius: 50%; display: inline-flex;
+        align-items: center; justify-content: center; transition: all 0.2s ease;
+        vertical-align: middle; line-height: 1; width: 24px; height: 24px; flex-shrink: 0;
     }
 
     .help-icon:hover {
-        background-color: var(--color-primary);
-        color: var(--color-background);
-        transform: scale(1.1);
+        background-color: var(--color-primary); color: var(--color-background); transform: scale(1.1);
     }
 
     .help-icon:focus {
-        outline: 2px solid var(--color-primary);
-        outline-offset: 2px;
-        background-color: var(--color-primary);
-        color: var(--color-background);
+        outline: 2px solid var(--color-primary); outline-offset: 2px;
+        background-color: var(--color-primary); color: var(--color-background);
     }
 
-    .help-icon svg {
-        width: 16px;
-        height: 16px;
-        pointer-events: none;
-    }
+    .help-icon svg { width: 16px; height: 16px; pointer-events: none; }
 
-    /* Estilos para tooltips */
     .tooltip {
-        position: absolute;
-        background: var(--color-surface);
-        border: 1px solid var(--color-border);
-        border-radius: 12px;
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-        padding: 0;
-        max-width: 420px;
-        min-width: 320px;
-        z-index: 10000;
-        animation: tooltipFadeIn 0.3s ease;
+        position: absolute; background: var(--color-surface); border: 1px solid var(--color-border);
+        border-radius: 12px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15); padding: 0;
+        max-width: 420px; min-width: 320px; z-index: 10000; animation: tooltipFadeIn 0.3s ease;
         font-family: var(--font-family-base);
     }
 
     @keyframes tooltipFadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(-10px) scale(0.95);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
+        from { opacity: 0; transform: translateY(-10px) scale(0.95); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .tooltip-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 16px 20px;
-        border-bottom: 1px solid var(--color-border);
+        display: flex; justify-content: space-between; align-items: center; padding: 16px 20px;
+        border-bottom: 1px solid var(--color-border); border-radius: 12px 12px 0 0;
         background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
-        border-radius: 12px 12px 0 0;
     }
 
     .tooltip-title {
-        margin: 0;
-        font-size: 16px;
-        font-weight: 600;
-        color: var(--color-background);
-        line-height: 1.3;
+        margin: 0; font-size: 16px; font-weight: 600; color: var(--color-background); line-height: 1.3;
     }
 
     .tooltip-close {
-        background: none;
-        border: none;
-        color: var(--color-background);
-        cursor: pointer;
-        padding: 6px;
-        border-radius: 6px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s ease;
-        opacity: 0.8;
+        background: none; border: none; color: var(--color-background); cursor: pointer;
+        padding: 6px; border-radius: 6px; display: flex; align-items: center; justify-content: center;
+        transition: all 0.2s ease; opacity: 0.8;
     }
 
     .tooltip-close:hover {
-        background-color: rgba(255, 255, 255, 0.2);
-        opacity: 1;
-        transform: scale(1.1);
+        background-color: rgba(255, 255, 255, 0.2); opacity: 1; transform: scale(1.1);
     }
 
     .tooltip-close:focus {
-        outline: 2px solid rgba(255, 255, 255, 0.5);
-        outline-offset: 2px;
+        outline: 2px solid rgba(255, 255, 255, 0.5); outline-offset: 2px;
     }
 
-    .tooltip-close svg {
-        width: 16px;
-        height: 16px;
-        pointer-events: none;
-    }
+    .tooltip-close svg { width: 16px; height: 16px; pointer-events: none; }
 
-    .tooltip-content {
-        padding: 20px;
-    }
+    .tooltip-content { padding: 20px; }
 
     .tooltip-description {
-        margin: 0 0 16px 0;
-        color: var(--color-text);
-        font-size: 14px;
-        line-height: 1.6;
-        font-weight: 400;
+        margin: 0 0 16px 0; color: var(--color-text); font-size: 14px; line-height: 1.6; font-weight: 400;
     }
 
-    .tooltip-example,
-    .tooltip-tips {
-        margin: 16px 0 0 0;
-        padding: 14px 16px;
-        border-radius: 8px;
-        font-size: 13px;
-        line-height: 1.5;
-        border-left: 4px solid;
+    .tooltip-example, .tooltip-tips {
+        margin: 16px 0 0 0; padding: 14px 16px; border-radius: 8px; font-size: 13px;
+        line-height: 1.5; border-left: 4px solid;
     }
 
     .tooltip-example {
-        background-color: rgba(var(--color-success-rgb), 0.08);
-        border-color: var(--color-success);
+        background-color: rgba(var(--color-success-rgb), 0.08); border-color: var(--color-success);
         border-left-color: var(--color-success);
     }
 
     .tooltip-example strong {
-        color: var(--color-success);
-        font-weight: 600;
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        color: var(--color-success); font-weight: 600; font-size: 12px;
+        text-transform: uppercase; letter-spacing: 0.5px;
     }
 
     .tooltip-tips {
-        background-color: rgba(var(--color-warning-rgb), 0.08);
-        border-color: var(--color-warning);
+        background-color: rgba(var(--color-warning-rgb), 0.08); border-color: var(--color-warning);
         border-left-color: var(--color-warning);
     }
 
     .tooltip-tips strong {
-        color: var(--color-warning);
-        font-weight: 600;
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        color: var(--color-warning); font-weight: 600; font-size: 12px;
+        text-transform: uppercase; letter-spacing: 0.5px;
     }
 
-    .tooltip-example p,
-    .tooltip-tips p {
-        margin: 8px 0 0 0;
-        color: var(--color-text);
-        font-weight: 400;
+    .tooltip-example p, .tooltip-tips p {
+        margin: 8px 0 0 0; color: var(--color-text); font-weight: 400;
     }
 
-    /* Melhor integração com labels */
     .form-label {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 4px;
-        margin-bottom: 8px;
+        display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin-bottom: 8px;
     }
 
     .checkbox-label {
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-        cursor: pointer;
-        font-size: 14px;
-        line-height: 1.5;
-        padding: 4px 0;
+        display: flex; align-items: flex-start; gap: 12px; cursor: pointer;
+        font-size: 14px; line-height: 1.5; padding: 4px 0;
     }
 
-    .checkbox-label .help-icon {
-        margin-left: 8px;
-        margin-top: 2px;
-        align-self: flex-start;
-    }
+    .checkbox-label .help-icon { margin-left: 8px; margin-top: 2px; align-self: flex-start; }
 
-    /* Responsividade para tooltips */
     @media (max-width: 768px) {
         .tooltip {
-            max-width: 90vw;
-            min-width: 280px;
-            left: 5vw !important;
-            right: 5vw !important;
-            margin: 0 auto;
+            max-width: 90vw; min-width: 280px; left: 5vw !important; right: 5vw !important; margin: 0 auto;
         }
-
-        .tooltip-header {
-            padding: 12px 16px;
-        }
-
-        .tooltip-title {
-            font-size: 15px;
-        }
-
-        .tooltip-content {
-            padding: 16px;
-        }
+        .tooltip-header { padding: 12px 16px; }
+        .tooltip-title { font-size: 15px; }
+        .tooltip-content { padding: 16px; }
     }
 
     @media (max-width: 480px) {
         .tooltip {
-            max-width: 95vw;
-            min-width: 260px;
-            left: 2.5vw !important;
-            right: 2.5vw !important;
+            max-width: 95vw; min-width: 260px; left: 2.5vw !important; right: 2.5vw !important;
         }
-        
-        .tooltip-content {
-            padding: 14px;
-        }
-        
-        .tooltip-example,
-        .tooltip-tips {
-            padding: 12px;
-            font-size: 12px;
-        }
-
-        .tooltip-description {
-            font-size: 13px;
-        }
-
-        .help-icon {
-            width: 22px;
-            height: 22px;
-            margin-left: 6px;
-        }
-
-        .help-icon svg {
-            width: 14px;
-            height: 14px;
-        }
+        .tooltip-content { padding: 14px; }
+        .tooltip-example, .tooltip-tips { padding: 12px; font-size: 12px; }
+        .tooltip-description { font-size: 13px; }
+        .help-icon { width: 22px; height: 22px; margin-left: 6px; }
+        .help-icon svg { width: 14px; height: 14px; }
     }
 
-    /* Melhorias de acessibilidade */
-    .tooltip:focus {
-        outline: 3px solid var(--color-primary);
-        outline-offset: 2px;
-    }
-
-    /* Animação suave para hover nos help icons */
-    .help-icon {
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* Overlay sutil quando tooltip está aberto */
-    .tooltip::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.1);
-        z-index: -1;
-        pointer-events: none;
-        opacity: 0;
-        animation: overlayFadeIn 0.3s ease forwards;
-    }
-
-    @keyframes overlayFadeIn {
-        to {
-            opacity: 1;
-        }
-    }
+    .tooltip:focus { outline: 3px solid var(--color-primary); outline-offset: 2px; }
+    .help-icon { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
 `;
 document.head.appendChild(style);
 
-// Adiciona helpers de acessibilidade por teclado
+// Event listeners adicionais
 document.addEventListener('keydown', (e) => {
-    // Pula para o conteúdo principal com Alt+M
     if (e.altKey && e.key === 'm') {
         e.preventDefault();
         document.querySelector('.main')?.focus();
     }
 });
 
-// Adiciona feedback visual para interações de formulário
 document.addEventListener('change', (e) => {
     if (e.target.matches('input, select, textarea')) {
-        // Adiciona animação sutil para mostrar que o campo foi atualizado
         e.target.style.transform = 'scale(1.02)';
-        setTimeout(() => {
-            e.target.style.transform = '';
-        }, 150);
+        setTimeout(() => { e.target.style.transform = ''; }, 150);
     }
 });
 
-// Previne submissão do formulário
 document.addEventListener('submit', (e) => {
     if (e.target.id === 'checklistForm') {
         e.preventDefault();
@@ -1355,7 +1300,5 @@ document.addEventListener('submit', (e) => {
     }
 });
 
-// Exporta funcionalidade para uso futuro potencial
-window.ChecklistApp = ChecklistApp;
-            
-                
+window.ChecklistApp = ChecklistApp;          
+
