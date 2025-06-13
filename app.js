@@ -1,3 +1,10 @@
+Perfeito, Rodrigo! Que ótimo que funcionou! Vou implementar um sistema completo de tooltips informativos para todos os campos do checklist. Isso vai tornar a ferramenta muito mais educativa e útil para os usuários.
+
+**Sistema de Help Implementado:**
+
+Vou criar um sistema de tooltips que aparece ao clicar em ícones de informação ao lado de cada campo, fornecendo explicações detalhadas e exemplos práticos.
+
+```javascript
 // Professional Website Checklist Application
 class ChecklistApp {
     constructor() {
@@ -23,6 +30,269 @@ class ChecklistApp {
             'pos-lancamento': { total: 7, completed: 0 }
         };
 
+        // Dados de help para todos os campos
+        this.helpData = {
+            // Informações Básicas do Projeto
+            'nome-empresa': {
+                title: 'Nome da Empresa',
+                description: 'Nome oficial da empresa ou marca que será representada no site.',
+                example: 'Exemplo: "TechSolutions Ltda", "Padaria do João", "Consultoria Digital Pro"',
+                tips: 'Use o nome completo e oficial da empresa. Este nome aparecerá no título do site, rodapé e metadados.'
+            },
+            'setor-atuacao': {
+                title: 'Setor de Atuação',
+                description: 'Área de negócio ou mercado em que a empresa atua.',
+                example: 'Exemplo: "Tecnologia", "Alimentação", "Consultoria", "E-commerce", "Saúde"',
+                tips: 'Seja específico para ajudar na personalização do design e conteúdo do site.'
+            },
+            'publico-alvo': {
+                title: 'Público-Alvo',
+                description: 'Descrição detalhada do público que o site pretende atingir.',
+                example: 'Exemplo: "Empresas de médio porte", "Jovens de 18-35 anos", "Profissionais de TI"',
+                tips: 'Inclua faixa etária, interesses, comportamento online e necessidades específicas.'
+            },
+            'objetivo-principal': {
+                title: 'Objetivo Principal',
+                description: 'Principal meta que o site deve alcançar para o negócio.',
+                example: 'Geração de leads, vendas online, divulgação da marca, suporte ao cliente',
+                tips: 'Defina um objetivo claro e mensurável para orientar todas as decisões de design e funcionalidade.'
+            },
+            'url-desejada': {
+                title: 'URL Desejada',
+                description: 'Endereço web preferido para o site (domínio).',
+                example: 'Exemplo: "www.minhaempresa.com.br", "loja.exemplo.com"',
+                tips: 'Verifique disponibilidade do domínio. Prefira nomes curtos, fáceis de lembrar e relacionados ao negócio.'
+            },
+            'data-entrega': {
+                title: 'Data de Entrega',
+                description: 'Prazo desejado para conclusão e lançamento do site.',
+                example: 'Considere tempo para desenvolvimento, testes e ajustes',
+                tips: 'Seja realista com o prazo. Sites complexos podem levar 2-6 meses para desenvolvimento completo.'
+            },
+
+            // Identidade Visual e Branding
+            'logo-empresa': {
+                title: 'Logo da Empresa',
+                description: 'Logotipo oficial da empresa em formato vetorial de alta qualidade.',
+                example: 'Formatos ideais: SVG, AI, EPS. Também aceita PNG/JPG em alta resolução',
+                tips: 'Forneça versões em diferentes cores (colorida, branca, preta) e orientações (horizontal, vertical).'
+            },
+            'manual-marca': {
+                title: 'Manual da Marca',
+                description: 'Documento que define padrões visuais, cores, tipografia e aplicações da marca.',
+                example: 'Inclui paleta de cores, fontes, espaçamentos, usos corretos e incorretos do logo',
+                tips: 'Se não existe, considere criar um guia básico com cores e fontes principais da marca.'
+            },
+            'paleta-cores': {
+                title: 'Paleta de Cores',
+                description: 'Cores oficiais da marca definidas em códigos hexadecimais.',
+                example: 'Exemplo: Azul #1E40AF, Branco #FFFFFF, Cinza #6B7280',
+                tips: 'Inclua cores primárias, secundárias e neutras. Use ferramentas como Adobe Color para harmonização.'
+            },
+            'tipografia-principal': {
+                title: 'Tipografia Principal',
+                description: 'Fonte principal que será usada nos títulos e textos do site.',
+                example: 'Exemplo: "Roboto", "Open Sans", "Montserrat", "Poppins"',
+                tips: 'Escolha fontes legíveis e que reflitam a personalidade da marca. Considere fontes do Google Fonts.'
+            },
+            'tipografia-secundaria': {
+                title: 'Tipografia Secundária',
+                description: 'Fonte complementar para textos corridos e elementos secundários.',
+                example: 'Exemplo: "Inter", "Source Sans Pro", "Lato"',
+                tips: 'Deve complementar a fonte principal e garantir boa legibilidade em textos longos.'
+            },
+            'estilo-visual': {
+                title: 'Estilo Visual',
+                description: 'Abordagem visual geral que o site deve seguir.',
+                example: 'Moderno, minimalista, corporativo, criativo, elegante, descontraído',
+                tips: 'Considere o público-alvo e setor de atuação. Colete referências visuais de sites admirados.'
+            },
+            'referencias-visuais': {
+                title: 'Referências Visuais',
+                description: 'Sites, designs ou elementos visuais que servem de inspiração.',
+                example: 'URLs de sites admirados, imagens de referência, estilos específicos',
+                tips: 'Inclua tanto referências do mesmo setor quanto de outros que tenham elementos interessantes.'
+            },
+
+            // Estrutura e Layout
+            'tipo-site': {
+                title: 'Tipo de Site',
+                description: 'Categoria principal que melhor define o site a ser desenvolvido.',
+                example: 'Site institucional, e-commerce, blog, portfólio, landing page',
+                tips: 'A escolha define a estrutura base e funcionalidades necessárias.'
+            },
+            'paginas-principais': {
+                title: 'Páginas Principais',
+                description: 'Lista das páginas essenciais que o site deve conter.',
+                example: 'Home, Sobre, Serviços, Produtos, Contato, Blog, Portfólio',
+                tips: 'Pense na jornada do usuário e inclua páginas que atendam suas necessidades.'
+            },
+            'menu-navegacao': {
+                title: 'Menu de Navegação',
+                description: 'Estrutura e organização do menu principal do site.',
+                example: 'Menu horizontal, vertical, hambúrguer, mega menu, dropdown',
+                tips: 'Mantenha simplicidade e máximo de 7 itens no menu principal para melhor usabilidade.'
+            },
+            'layout-preferido': {
+                title: 'Layout Preferido',
+                description: 'Estrutura visual e organização dos elementos na página.',
+                example: 'Layout em grid, uma coluna, duas colunas, assimétrico, minimalista',
+                tips: 'Considere o tipo de conteúdo e como o usuário consumirá a informação.'
+            },
+            'call-to-action': {
+                title: 'Call-to-Action Principal',
+                description: 'Ação principal que você quer que os visitantes realizem no site.',
+                example: '"Entre em Contato", "Compre Agora", "Solicite Orçamento", "Cadastre-se"',
+                tips: 'Use verbos no imperativo e seja específico sobre o que acontece após o clique.'
+            },
+            'formularios-necessarios': {
+                title: 'Formulários Necessários',
+                description: 'Tipos de formulários que o site deve incluir.',
+                example: 'Contato, orçamento, newsletter, cadastro, pesquisa de satisfação',
+                tips: 'Mantenha formulários simples e solicite apenas informações essenciais.'
+            },
+
+            // Responsividade
+            'dispositivos-prioritarios': {
+                title: 'Dispositivos Prioritários',
+                description: 'Tipos de dispositivos mais importantes para o público-alvo.',
+                example: 'Desktop, smartphone, tablet, smart TV',
+                tips: 'Considere dados de analytics se já possui um site, ou pesquise hábitos do seu público.'
+            },
+            'breakpoints-personalizados': {
+                title: 'Breakpoints Personalizados',
+                description: 'Pontos de quebra específicos para adaptação do layout.',
+                example: 'Mobile: 320px-768px, Tablet: 768px-1024px, Desktop: 1024px+',
+                tips: 'Use breakpoints padrão do mercado, mas ajuste conforme necessidades específicas.'
+            },
+            'comportamento-mobile': {
+                title: 'Comportamento Mobile',
+                description: 'Como o site deve se comportar em dispositivos móveis.',
+                example: 'Menu hambúrguer, botões maiores, scroll vertical, gestos touch',
+                tips: 'Priorize a experiência mobile-first, considerando dedos e telas menores.'
+            },
+
+            // Acessibilidade
+            'nivel-wcag': {
+                title: 'Nível WCAG',
+                description: 'Nível de conformidade com as diretrizes de acessibilidade web.',
+                example: 'A (básico), AA (recomendado), AAA (avançado)',
+                tips: 'WCAG 2.1 AA é o padrão recomendado e exigido por lei em muitos países.'
+            },
+            'recursos-acessibilidade': {
+                title: 'Recursos de Acessibilidade',
+                description: 'Funcionalidades específicas para melhorar a acessibilidade.',
+                example: 'Alto contraste, aumento de fonte, navegação por teclado, leitor de tela',
+                tips: 'Considere usuários com deficiências visuais, auditivas, motoras e cognitivas.'
+            },
+            'publico-pcd': {
+                title: 'Público PcD',
+                description: 'Se o site atende especificamente pessoas com deficiência.',
+                example: 'Sim, se for site governamental, educacional ou de saúde',
+                tips: 'Sites públicos e de grande alcance devem priorizar acessibilidade total.'
+            },
+
+            // Performance
+            'tempo-carregamento': {
+                title: 'Tempo de Carregamento',
+                description: 'Tempo máximo aceitável para carregamento completo das páginas.',
+                example: 'Ideal: até 3 segundos, Aceitável: até 5 segundos',
+                tips: 'Páginas que carregam em até 3 segundos têm melhor taxa de conversão.'
+            },
+            'otimizacao-imagens': {
+                title: 'Otimização de Imagens',
+                description: 'Estratégias para reduzir o tamanho das imagens sem perder qualidade.',
+                example: 'WebP, compressão, lazy loading, responsive images',
+                tips: 'Imagens representam 60-70% do peso de uma página. Otimização é essencial.'
+            },
+            'cdn-necessario': {
+                title: 'CDN Necessário',
+                description: 'Se o site precisa de uma rede de distribuição de conteúdo.',
+                example: 'Sim para sites globais, e-commerce, alta audiência',
+                tips: 'CDN melhora velocidade para usuários em diferentes regiões geográficas.'
+            },
+
+            // SEO
+            'palavras-chave': {
+                title: 'Palavras-chave Principais',
+                description: 'Termos que o público usa para encontrar seus produtos/serviços.',
+                example: '"consultoria digital", "desenvolvimento web", "marketing online"',
+                tips: 'Use ferramentas como Google Keyword Planner, SEMrush ou Ubersuggest para pesquisa.'
+            },
+            'concorrentes-seo': {
+                title: 'Concorrentes SEO',
+                description: 'Sites concorrentes que aparecem bem nos resultados de busca.',
+                example: 'URLs de sites concorrentes que rankeiam bem no Google',
+                tips: 'Analise suas estratégias de conteúdo, palavras-chave e estrutura.'
+            },
+            'meta-descriptions': {
+                title: 'Meta Descriptions',
+                description: 'Descrições que aparecem nos resultados de busca do Google.',
+                example: 'Máximo 160 caracteres, incluindo palavra-chave principal',
+                tips: 'Seja persuasivo e inclua call-to-action. É o "anúncio" do seu site no Google.'
+            },
+
+            // Segurança
+            'certificado-ssl': {
+                title: 'Certificado SSL',
+                description: 'Certificado que garante conexão segura (HTTPS).',
+                example: 'Let\'s Encrypt (gratuito), Certificados pagos (EV, OV)',
+                tips: 'Essencial para SEO e confiança. Google penaliza sites sem HTTPS.'
+            },
+            'backup-automatico': {
+                title: 'Backup Automático',
+                description: 'Sistema de backup automático do site e banco de dados.',
+                example: 'Diário, semanal, mensal, com múltiplas versões',
+                tips: 'Configure backups automáticos e teste a restauração periodicamente.'
+            },
+            'firewall-waf': {
+                title: 'Firewall/WAF',
+                description: 'Proteção contra ataques maliciosos e tentativas de invasão.',
+                example: 'Cloudflare, Sucuri, ModSecurity, firewalls de hosting',
+                tips: 'WAF (Web Application Firewall) é essencial para sites com dados sensíveis.'
+            },
+
+            // Testes
+            'testes-dispositivos': {
+                title: 'Testes em Dispositivos',
+                description: 'Dispositivos reais onde o site será testado.',
+                example: 'iPhone, Android, iPad, laptops, desktops',
+                tips: 'Teste em dispositivos reais, não apenas emuladores. Inclua diferentes tamanhos de tela.'
+            },
+            'testes-navegadores': {
+                title: 'Testes em Navegadores',
+                description: 'Navegadores onde o site deve funcionar perfeitamente.',
+                example: 'Chrome, Firefox, Safari, Edge, Opera',
+                tips: 'Priorize navegadores mais usados pelo seu público. Verifique analytics para dados.'
+            },
+            'testes-velocidade': {
+                title: 'Testes de Velocidade',
+                description: 'Ferramentas para medir e otimizar a velocidade do site.',
+                example: 'Google PageSpeed, GTmetrix, Pingdom, WebPageTest',
+                tips: 'Teste regularmente e mantenha score acima de 90 no PageSpeed Insights.'
+            },
+
+            // Pós-Lançamento
+            'manutencao-preventiva': {
+                title: 'Manutenção Preventiva',
+                description: 'Plano de manutenção regular para manter o site funcionando bem.',
+                example: 'Atualizações mensais, backups, monitoramento, otimizações',
+                tips: 'Manutenção preventiva evita problemas maiores e mantém performance.'
+            },
+            'analytics-configuracao': {
+                title: 'Configuração Analytics',
+                description: 'Ferramentas de análise para monitorar performance do site.',
+                example: 'Google Analytics, Google Search Console, Hotjar, Crazy Egg',
+                tips: 'Configure desde o lançamento para ter dados históricos completos.'
+            },
+            'estrategia-conteudo': {
+                title: 'Estratégia de Conteúdo',
+                description: 'Plano para criação e publicação regular de conteúdo.',
+                example: 'Blog semanal, posts redes sociais, newsletters, atualizações',
+                tips: 'Conteúdo regular melhora SEO e mantém audiência engajada.'
+            }
+        };
+
         this.init();
     }
 
@@ -32,9 +302,188 @@ class ChecklistApp {
         this.setupProgressTracking();
         this.setupPdfGeneration();
         this.setupKeyboardNavigation();
+        this.setupHelpSystem();
         this.loadSavedData();
         this.calculateTotalFields();
         this.updateProgress();
+    }
+
+    setupHelpSystem() {
+        // Adiciona ícones de help a todos os campos
+        this.addHelpIcons();
+        
+        // Event listeners para tooltips
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('help-icon')) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.showTooltip(e.target);
+            } else if (!e.target.closest('.tooltip')) {
+                this.hideAllTooltips();
+            }
+        });
+
+        // Fecha tooltip com ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.hideAllTooltips();
+            }
+        });
+    }
+
+    addHelpIcons() {
+        // Encontra todos os labels e adiciona ícones de help
+        const labels = document.querySelectorAll('.form-label, .checkbox-label');
+        
+        labels.forEach(label => {
+            const input = this.findInputForLabel(label);
+            if (input && input.name && this.helpData[input.name]) {
+                const helpIcon = this.createHelpIcon(input.name);
+                
+                // Adiciona o ícone ao final do label
+                if (label.classList.contains('checkbox-label')) {
+                    // Para checkboxes, adiciona após o texto
+                    label.appendChild(helpIcon);
+                } else {
+                    // Para outros campos, adiciona após o texto do label
+                    label.appendChild(helpIcon);
+                }
+            }
+        });
+    }
+
+    findInputForLabel(label) {
+        // Tenta encontrar o input associado ao label
+        const forAttr = label.getAttribute('for');
+        if (forAttr) {
+            return document.getElementById(forAttr);
+        }
+        
+        // Se não tem 'for', procura input dentro do label
+        const input = label.querySelector('input, select, textarea');
+        if (input) {
+            return input;
+        }
+        
+        // Procura input irmão seguinte
+        let sibling = label.nextElementSibling;
+        while (sibling) {
+            if (sibling.matches('input, select, textarea')) {
+                return sibling;
+            }
+            const nestedInput = sibling.querySelector('input, select, textarea');
+            if (nestedInput) {
+                return nestedInput;
+            }
+            sibling = sibling.nextElementSibling;
+        }
+        
+        return null;
+    }
+
+    createHelpIcon(fieldName) {
+        const helpIcon = document.createElement('button');
+        helpIcon.className = 'help-icon';
+        helpIcon.type = 'button';
+        helpIcon.setAttribute('data-field', fieldName);
+        helpIcon.setAttribute('aria-label', `Ajuda para ${this.helpData[fieldName].title}`);
+        helpIcon.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                <point cx="12" cy="17" r="1"></point>
+            </svg>
+        `;
+        
+        return helpIcon;
+    }
+
+    showTooltip(helpIcon) {
+        const fieldName = helpIcon.getAttribute('data-field');
+        const helpInfo = this.helpData[fieldName];
+        
+        if (!helpInfo) return;
+
+        // Remove tooltip existente
+        this.hideAllTooltips();
+
+        // Cria novo tooltip
+        const tooltip = document.createElement('div');
+        tooltip.className = 'tooltip';
+        tooltip.innerHTML = `
+            <div class="tooltip-header">
+                <h4 class="tooltip-title">${helpInfo.title}</h4>
+                <button class="tooltip-close" aria-label="Fechar ajuda">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="tooltip-content">
+                <p class="tooltip-description">${helpInfo.description}</p>
+                <div class="tooltip-example">
+                    <strong>Exemplo:</strong>
+                    <p>${helpInfo.example}</p>
+                </div>
+                <div class="tooltip-tips">
+                    <strong>Dica:</strong>
+                    <p>${helpInfo.tips}</p>
+                </div>
+            </div>
+        `;
+
+        // Posiciona o tooltip
+        document.body.appendChild(tooltip);
+        this.positionTooltip(tooltip, helpIcon);
+
+        // Event listener para fechar
+        tooltip.querySelector('.tooltip-close').addEventListener('click', () => {
+            this.hideAllTooltips();
+        });
+
+        // Foco no tooltip para acessibilidade
+        tooltip.setAttribute('tabindex', '-1');
+        tooltip.focus();
+    }
+
+    positionTooltip(tooltip, trigger) {
+        const triggerRect = trigger.getBoundingClientRect();
+        const tooltipRect = tooltip.getBoundingClientRect();
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+
+        let top = triggerRect.top + scrollTop - tooltipRect.height - 10;
+        let left = triggerRect.left + scrollLeft + (triggerRect.width / 2) - (tooltipRect.width / 2);
+
+        // Ajusta se sair da tela pela direita
+        if (left + tooltipRect.width > viewportWidth + scrollLeft - 20) {
+            left = viewportWidth + scrollLeft - tooltipRect.width - 20;
+        }
+
+        // Ajusta se sair da tela pela esquerda
+        if (left < scrollLeft + 20) {
+            left = scrollLeft + 20;
+        }
+
+        // Se não cabe acima, coloca abaixo
+        if (top < scrollTop + 20) {
+            top = triggerRect.bottom + scrollTop + 10;
+        }
+
+        tooltip.style.position = 'absolute';
+        tooltip.style.top = `${top}px`;
+        tooltip.style.left = `${left}px`;
+        tooltip.style.zIndex = '10000';
+    }
+
+    hideAllTooltips() {
+        const tooltips = document.querySelectorAll('.tooltip');
+        tooltips.forEach(tooltip => {
+            tooltip.remove();
+        });
     }
 
     setupAccordion() {
@@ -227,7 +676,7 @@ class ChecklistApp {
                             element.checked = value === 'on' || value === true;
                         } else {
                             element.value = value;
-                        }
+                                                }
                     }
                 });
             }
@@ -550,7 +999,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new ChecklistApp();
 });
 
-// Adiciona estilos para animação de notificação
+// Adiciona estilos para animação de notificação e tooltips
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {
@@ -562,6 +1011,197 @@ style.textContent = `
             transform: translateX(0);
             opacity: 1;
         }
+    }
+
+    /* Estilos para ícones de help */
+    .help-icon {
+        background: none;
+        border: none;
+        color: var(--color-primary);
+        cursor: pointer;
+        padding: 2px;
+        margin-left: 6px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        vertical-align: middle;
+        line-height: 1;
+    }
+
+    .help-icon:hover {
+        background-color: var(--color-primary);
+        color: var(--color-background);
+        transform: scale(1.1);
+    }
+
+    .help-icon:focus {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+
+    .help-icon svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* Estilos para tooltips */
+    .tooltip {
+        position: absolute;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        padding: 0;
+        max-width: 400px;
+        min-width: 300px;
+        z-index: 10000;
+        animation: tooltipFadeIn 0.2s ease;
+    }
+
+    @keyframes tooltipFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .tooltip-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--color-border);
+        background: var(--color-primary);
+        border-radius: 8px 8px 0 0;
+    }
+
+    .tooltip-title {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--color-background);
+    }
+
+    .tooltip-close {
+        background: none;
+        border: none;
+        color: var(--color-background);
+        cursor: pointer;
+        padding: 4px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s ease;
+    }
+
+    .tooltip-close:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .tooltip-close svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .tooltip-content {
+        padding: 16px;
+    }
+
+    .tooltip-description {
+        margin: 0 0 12px 0;
+        color: var(--color-text);
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .tooltip-example,
+    .tooltip-tips {
+        margin: 12px 0 0 0;
+        padding: 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .tooltip-example {
+        background-color: rgba(var(--color-success-rgb), 0.1);
+        border: 1px solid rgba(var(--color-success-rgb), 0.2);
+    }
+
+    .tooltip-example strong {
+        color: var(--color-success);
+        font-weight: 600;
+    }
+
+    .tooltip-tips {
+        background-color: rgba(var(--color-warning-rgb), 0.1);
+        border: 1px solid rgba(var(--color-warning-rgb), 0.2);
+    }
+
+    .tooltip-tips strong {
+        color: var(--color-warning);
+        font-weight: 600;
+    }
+
+    .tooltip-example p,
+    .tooltip-tips p {
+        margin: 4px 0 0 0;
+        color: var(--color-text);
+    }
+
+    /* Responsividade para tooltips */
+    @media (max-width: 768px) {
+        .tooltip {
+            max-width: 90vw;
+            min-width: 280px;
+            left: 5vw !important;
+            right: 5vw !important;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .tooltip {
+            max-width: 95vw;
+            min-width: 250px;
+            left: 2.5vw !important;
+            right: 2.5vw !important;
+        }
+        
+        .tooltip-content {
+            padding: 12px;
+        }
+        
+        .tooltip-example,
+        .tooltip-tips {
+            padding: 8px;
+            font-size: 12px;
+        }
+    }
+
+    /* Melhor posicionamento dos ícones de help em checkboxes */
+    .checkbox-label .help-icon {
+        margin-left: 8px;
+        align-self: flex-start;
+        margin-top: 1px;
+    }
+
+    /* Garante que labels com help icons não quebrem de forma estranha */
+    .form-label {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    .form-label .help-icon {
+        margin-left: 4px;
     }
 `;
 document.head.appendChild(style);
